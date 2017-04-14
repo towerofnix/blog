@@ -15,7 +15,11 @@ const build = () => (
     .then(posts => Promise.all([
       fsp.writeFile('site/index.html', generateIndexPage()),
 
-      fsp.writeFile('site/archive/all.html', generateArchivePage(posts), 'utf-8'),
+      fsp.writeFile(
+        'site/archive/all.html',
+        generateArchivePage(posts),
+        'utf-8'
+      ),
 
       ...posts.map(
         post => fsp.writeFile(
@@ -163,20 +167,27 @@ const generateCategoryList = (categoryData) => (
 )
 
 const generateDisqusEmbedScript = (identifier, permalink) => (
-  `<script>\n` +
-  `function disqus_config() {\n` +
-  `  console.log(this)\n` +
-  `  this.page.url = '${getSiteOrigin() + permalink}'\n` +
-  `  this.page.identifier  = '${permalink}'\n` +
-  `}\n` +
-  `(function() {\n` +
-  `  var d = document, s = d.createElement('script')\n` +
-  `  s.src = 'https://another-blog-test.disqus.com/embed.js'\n` +
-  `  s.setAttribute('data-timestamp', +new Date())\n` +
-  `  var e = (d.head || d.body)\n` +
-  `  e.appendChild(s)\n` +
-  `})()\n` +
-  `</script>\n`
+  (getSiteOrigin().indexOf('localhost') === -1)
+  ? (
+    `<script>\n` +
+    `function disqus_config() {\n` +
+    `  console.log(this)\n` +
+    `  this.page.url = '${getSiteOrigin() + permalink}'\n` +
+    `  this.page.identifier  = '${permalink}'\n` +
+    `}\n` +
+    `(function() {\n` +
+    `  var d = document, s = d.createElement('script')\n` +
+    `  s.src = 'https://another-blog-test.disqus.com/embed.js'\n` +
+    `  s.setAttribute('data-timestamp', +new Date())\n` +
+    `  var e = (d.head || d.body)\n` +
+    `  e.appendChild(s)\n` +
+    `})()\n` +
+    `</script>\n`
+  ) : (
+    `<hr>\n` +
+    `<p>(This is a local build of the site - comments will appear here ` +
+    `when on a published build.)</p>\n`
+  )
 )
 
 const parsePostText = text => {
