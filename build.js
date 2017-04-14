@@ -4,7 +4,7 @@ const marked = require('marked')
 const promisify = require('promisify-native')
 const ncp = promisify(require('ncp').ncp)
 
-const SITE_ORIGIN = 'http://localhost:8000/'
+const SITE_ORIGIN = 'https://liam4.github.io/blog/'
 
 const build = () => (
   fsp.readdir('posts')
