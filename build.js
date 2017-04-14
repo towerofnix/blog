@@ -4,7 +4,7 @@ const marked = require('marked')
 const promisify = require('promisify-native')
 const ncp = promisify(require('ncp').ncp)
 
-const SITE_ORIGIN = 'https://liam4.github.io/blog/'
+const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000')
 
 const build = () => (
   fsp.readdir('posts')
@@ -37,7 +37,7 @@ const build = () => (
 
       ncp('static', 'site/static')
     ]))
-    .then(() => console.log('Built.'))
+    .then(() => console.log('Built. Site origin: ' + getSiteOrigin()))
 )
 
 const generateIndexPage = () => (
