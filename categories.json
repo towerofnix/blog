@@ -1,0 +1,11 @@
+{
+  "text": {
+    "title": "Text-based Posts",
+    "description": "Particularly wordy posts."
+  },
+
+  "blog-dev": {
+    "title": "Blog Development",
+    "description": "Posts related to developing the blog."
+  }
+}

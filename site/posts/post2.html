@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Post two</title>
+<base href='http://localhost:8000/'>
+<link rel='stylesheet' href='static/site.css'>
+</head>
+<body>
+<div id='main'>
+<div id='nav'>
+  <a href='index.html'>(Index.)</a>
+  <a href='archive.html'>(Archive.)</a>
+</div>
+<div id='content'>
+<p>Magic and rainbows don&#39;t actually make the world go round, but they help.</p>
+
+<div id='disqus_thread'></div>
+<script>
+function disqus_config() {
+  console.log(this)
+  this.page.url = 'http://localhost:8000/posts/post2.html'
+  this.page.identifier  = 'posts/post2.html'
+}
+(function() {
+  var d = document, s = d.createElement('script')
+  s.src = 'https://another-blog-test.disqus.com/embed.js'
+  s.setAttribute('data-timestamp', +new Date())
+  var e = (d.head || d.body)
+  e.appendChild(s)
+})()
+</script>
+</div>
+</div>
+</body>
+</html>

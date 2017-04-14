@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "fs-promise": "^2.0.2",
+    "js-yaml": "^3.8.3",
+    "marked": "^0.3.6",
+    "ncp": "^2.0.0",
+    "promisify-native": "^1.0.0"
+  }
+}

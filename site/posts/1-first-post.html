@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>First Post</title>
+<base href='http://localhost:8000/'>
+<link rel='stylesheet' href='static/site.css'>
+</head>
+<body>
+<div id='main'>
+<div id='nav'>
+  <a href='index.html'>(Index.)</a>
+  <a href='archive.html'>(Archive.)</a>
+</div>
+<div id='content'>
+<h1 id="first-post">First Post</h1>
+<p>Hello, world! Or whatever.</p>
+<p>This is just a test blog for now. I&#39;m planning on throwing art and stuff onto
+the site, so I guess you can expect that.</p>
+<p>This isn&#39;t the first time I&#39;ve done a blog, and it&#39;ll probably be relatively
+short-lived like the others, but then again, I actually programmed this from
+scratch, and it&#39;s a kind of interesting setup (serverless/single-page). Here&#39;s
+the <a href="https://github.com/liam4/blog">GitHub repository</a> if you&#39;re curious!</p>
+<hr>
+<p>I guess I&#39;ll explain.</p>
+<p>In the very beginning(tm), I used Scratch to post art. Haha. Scratch was
+flawed, though. I wrote a little bit (somewhat indirectly) about that
+<a href="https://scratch.mit.edu/projects/152633913/">here</a>. But really Scratch just wasn&#39;t designed to, well,
+&quot;professionally&quot; share art.</p>
+<p>So for a while I was using Twitter to post art, instead. This wasn&#39;t perfect,
+either, though. Twitter is nice for sharing random junk like
+<a href="https://twitter.com/towerofnix/status/844198786410930176">this</a>, but not so much art projects I&#39;ve put semi-significant
+amounts of work into. It&#39;s not a very good place for sharing detailed feedback.</p>
+<p>What I eventually noticed is that a blog would work best. Just, you know, a
+place where I can post updates on the stuff I&#39;ve made, and at least have the
+technical potential for better discussion. So I programmed a blog, because I&#39;m
+too lazy to mess around with server hosts and Jekyll and other horrible stuff.
+(And also because I wanted to. Obligatory <a href="https://youtu.be/uNjxe8ShM-8?t=1m41s">motivation.</a>)</p>
+<hr>
+<p>Here&#39;s a picture, for good measure&#39;s sake.</p>
+<p><img src="static/media/00-puppet-thing.png" alt="Puppet thing"></p>
+
+<div id='disqus_thread'></div>
+<script>
+function disqus_config() {
+  console.log(this)
+  this.page.url = 'http://localhost:8000/posts/1-first-post.html'
+  this.page.identifier  = 'posts/1-first-post.html'
+}
+(function() {
+  var d = document, s = d.createElement('script')
+  s.src = 'https://another-blog-test.disqus.com/embed.js'
+  s.setAttribute('data-timestamp', +new Date())
+  var e = (d.head || d.body)
+  e.appendChild(s)
+})()
+</script>
+</div>
+</div>
+</body>
+</html>
