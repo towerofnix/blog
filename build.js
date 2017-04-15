@@ -2,6 +2,7 @@ const fsp = require('fs-promise')
 const yaml = require('js-yaml')
 const marked = require('marked')
 const promisify = require('promisify-native')
+const fixWS = require('fix-whitespace')
 const ncp = promisify(require('ncp').ncp)
 
 const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000')
@@ -48,15 +49,19 @@ const generateIndexPage = () => (
   generateSitePage(
     `<title>Index</title>`,
 
-    `<h1>Index</h1>\n` +
-    `<p>Welcome to the site! It's pretty blank right now, but it'll ` +
-    `hopefully work well enough as a basic blog. It's been ` +
-    `<a href='posts/2-rewriting-it-again.html'>rewritten again</a> to be ` +
-    `better in general, so now you should be able to browse the site on all ` +
-    `your <a href='https://en.wikipedia.org/wiki/Comparison_of_web_browsers#JavaScript_support'>` +
-    `stupid browsers</a>.</p>\n` +
-    `<p>It'd probably be best to start at the ` +
-    `<a href='archive.html'>archive</a>.</p>\n`
+    fixWS`
+      <h1>Index</h1>
+
+      <p>
+        Welcome to the site! It's pretty blank right now, but it'll hopefully
+        work well enough as a basic blog. It's been <a href='posts/2-rewriting-it-again.html'>rewritten again</a>
+        to be better in general, so now you should be able to browse the site on all your
+        <a href='https://en.wikipedia.org/wiki/Comparison_of_web_browsers#JavaScript_support'>stupid browsers</a>.
+      </p>
+
+      <p>It'd probably be best to start at the
+      <a href='archive.html'>archive</a>.</p>
+    `
   )
 )
 
@@ -71,39 +76,36 @@ const generatePostPage = post => (
 )
 
 const generateSitePage = (head, body) => (
-  `<!DOCTYPE html>\n` +
-  `<html>\n` +
-  `<head>\n` +
-  head + `\n` +
-
-  // Particularly handy for toolbar links!
-  `<base href='${getSiteOrigin()}'>\n` +
-  `<link rel='stylesheet' href='static/site.css'>\n` +
-
-  `</head>\n` +
-  `<body>\n` +
-
-  `<div id='main'>\n` +
-
-  `<div id='nav'>\n` +
-  `  <a href='index.html'>(Index.)</a>\n` +
-  `  <a href='archive.html'>(Archive.)</a>\n` +
-  `</div>\n` +
-
-  `<div id='content'>\n` +
-  body +
-  `</div>\n` +
-
-  `</div>\n` +
-  `</body>\n` +
-  `</html>\n`
+  fixWS`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <base href='${getSiteOrigin()}'>
+        ${head}
+        <link rel='stylesheet' href='static/site.css'>
+      </head>
+      <body>
+        <div id='main'>
+          <div id='nav'>
+            <a href='index.html'>(Index.)</a>
+            <a href='archive.html'>(Archive.)</a>
+          </div>
+          <div id='content'>
+            ${body}
+          </div>
+        </div>
+      </body>
+    </html>
+  `
 )
 
 const generateArchivePage = posts => (
   generateArchiveCategoryPage(
     '', // just use the default title, Archive (not "Archive - Archive"!)
-    `A quick (read: long) table of all of the posts I've published here. ` +
-    `See also the <a href='archive.html'>category-based archive</a>.`,
+    fixWS`
+      A quick (read: long) table of all of the posts I've published here.
+      See also the <a href='archive.html'>category-based archive</a>.
+    `,
     posts
   )
 )
@@ -112,11 +114,14 @@ const generateArchiveCategoriesPage = (categoryData) => (
   generateSitePage(
     `<title>Archive</title>`,
 
-    `<h1>Archive</h1>\n` +
-    `<p>A list of the categories the posts on the blog are organized ` +
-    `into. See also the <a href='archive/all.html'>archive of all ` +
-    `posts</a>.</p>\n` +
-    generateCategoryList(categoryData)
+    fixWS`
+      <h1>Archive</h1>
+      <p>A list of the categories the posts on the blog are organized
+      into. See also the <a href='archive/all.html'>archive of all
+      posts</a>.</p>
+
+      ${generateCategoryList(categoryData)}
+    `
   )
 )
 
@@ -137,56 +142,80 @@ const generateArchiveCategoryPage = (title, description, posts) => (
   generateSitePage(
     `<title>Archive${title ? ` - ${title}` : ''}</title>`,
 
-    `<h1>${title || 'Archive'}</h1>\n` +
-    `<p>${description}</p>\n` +
-    generateArchiveTable(posts)
+    fixWS`
+      <h1>${title || 'Archive'}</h1>
+      <p>${description}</p>
+
+      ${generateArchiveTable(posts)}
+    `
   )
 )
 
 const generateArchiveTable = posts => (
-  '<table><tbody>\n' +
-  posts.map(
-    post => {
-      const link = getPermalink(post)
-      return `  <tr><td><a href='${link}'>${post.config.title}</a></td></tr>`
-    }
-  ).join('\n')
-  + '\n</tbody></table>'
+  fixWS`
+    <table>
+      <tbody>
+        ${
+          posts.map(
+            post => {
+              const link = getPermalink(post)
+
+              return fixWS`
+                <tr>
+                  <td><a href='${link}'>${post.config.title}</a></td>
+                </tr>
+              `
+            }
+          ).join('\n')
+        }
+      </tbody>
+    </table>
+  `
 )
 
 const generateCategoryList = (categoryData) => (
-  `<ul>\n` +
-  Object.entries(categoryData).map(
-    ([id, category]) =>
-      `<li>` +
-      `<a href='archive/${id}.html'>${category.title}:</a> ` +
-      category.description +
-      `</li>`
-  ).join('\n') +
-  `</ul>\n`
+  fixWS`
+    <ul>
+      ${
+        Object.entries(categoryData).map(
+        ([id, category]) => fixWS`
+          <li>
+            <a href='archive/${id}.html'>${category.title}:</a>
+            ${category.description}
+          </li>
+        `
+        ).join('\n')
+      }
+    </ul>
+  `
 )
 
 const generateDisqusEmbedScript = (identifier, permalink) => (
   (getSiteOrigin().indexOf('localhost') === -1)
   ? (
-    `<script>\n` +
-    `function disqus_config() {\n` +
-    `  console.log(this)\n` +
-    `  this.page.url = '${getSiteOrigin() + permalink}'\n` +
-    `  this.page.identifier  = '${permalink}'\n` +
-    `}\n` +
-    `(function() {\n` +
-    `  var d = document, s = d.createElement('script')\n` +
-    `  s.src = 'https://another-blog-test.disqus.com/embed.js'\n` +
-    `  s.setAttribute('data-timestamp', +new Date())\n` +
-    `  var e = (d.head || d.body)\n` +
-    `  e.appendChild(s)\n` +
-    `})()\n` +
-    `</script>\n`
+    fixWS`
+      <script>
+        function disqus_config() {
+          console.log(this)
+          this.page.url = '${getSiteOrigin() + permalink}'
+          this.page.identifier  = '${permalink}'
+        }
+
+        (function() {
+          var d = document, s = d.createElement('script')
+          s.src = 'https://another-blog-test.disqus.com/embed.js'
+          s.setAttribute('data-timestamp', +new Date())
+          var e = (d.head || d.body)
+          e.appendChild(s)
+        })()
+      </script>
+    `
   ) : (
-    `<hr>\n` +
-    `<p>(This is a local build of the site - comments will appear here ` +
-    `when on a published build.)</p>\n`
+    fixWS`
+      <hr>
+      <p>(This is a local build of the site - comments will appear here
+      when on a published build.)</p>
+    `
   )
 )
 
