@@ -69,9 +69,12 @@ const generatePostPage = post => (
   generateSitePage(
     `<title>${post.config.title}</title>`,
 
-    post.html + `\n` +
-    `<div id='disqus_thread'></div>\n` +
-    generateDisqusEmbedScript(post.config.permalink, getPermalink(post))
+    fixWS`
+      ${post.html}
+      <p class='post-meta'>(-towerofnix, ${getTimeElement(post)})</p>
+      <div id='disqus_thread'></div>
+      ${generateDisqusEmbedScript(post.config.permalink, getPermalink(post))}
+    `
   )
 )
 
@@ -163,6 +166,7 @@ const generateArchiveTable = posts => (
               return fixWS`
                 <tr>
                   <td><a href='${link}'>${post.config.title}</a></td>
+                  <td>${getTimeElement(post)}</td>
                 </tr>
               `
             }
@@ -234,6 +238,14 @@ const parsePostText = text => {
   const code = text.slice(0, separatorIndex)
   const markdown = text.slice(separatorIndex + separator.length)
 
+  let config
+
+  try {
+    config = yaml.safeLoad(code)
+  } catch (err) {
+    throw new Error('Invalid YAML: ' + err.message)
+  }
+
   return {
     config: yaml.safeLoad(code),
     html: marked(markdown)
@@ -248,6 +260,59 @@ const getCategoryData = () => (
   fsp.readFile('categories.json', 'utf-8')
     .then(JSON.parse)
 )
+
+const getLatestPost = posts => {
+  let latestPost = posts[0]
+  let latestDate = 0
+
+  for (let curPost of posts) {
+    const curDate = getDate(curPost)
+    if (curDate > latestDate) {
+      latestPost = curPost
+      latestDate = curDate
+    }
+  }
+
+  return latestPost
+}
+
+const getDate = post => {
+  if (!('date' in post.config)) {
+    console.warn(`Post ${post.config.title} has no date!`)
+    return null
+  }
+
+  const { y, m, d } = post.config.date
+
+  return new Date(y, m, d)
+}
+
+const getTimeElement = post => {
+  const date = getDate(post)
+
+  const datetime = !date ? '' : asDatetime(date)
+
+  const humanDatetime = (
+    !date ? '(No date)' : asHumanReadableDate(date)
+  )
+
+  return `<time datetime='${datetime}'>${humanDatetime}</time>`
+}
+
+const asDatetime = date => (
+  `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+)
+
+const asHumanReadableDate = date => {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ]
+
+  const monthName = months[date.getMonth() - 1]
+
+  return `${monthName} ${date.getDate()}, ${date.getFullYear()}`
+}
 
 const getSiteOrigin = () => SITE_ORIGIN
 

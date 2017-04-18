@@ -1,6 +1,7 @@
 
     title: 'First Post'
     permalink: '1-first-post'
+    date: {m: 4, d: 10, y: 2017}
     categories:
     - 'text'
 

@@ -44,3 +44,8 @@ h1 {
   margin-bottom: 0.3em;
   font-weight: 800;
 }
+
+.post-meta {
+  font-style: italic;
+  color: #AAA;
+}
