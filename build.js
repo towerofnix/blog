@@ -14,7 +14,8 @@ const build = () => (
     )))
     .then(contents => contents.map(parsePostText))
     .then(posts => Promise.all([
-      fsp.writeFile('site/index.html', generateIndexPage()),
+      fsp.writeFile('site/index.html', generatePostPage(getLatestPost(posts))),
+      fsp.writeFile('site/about.html', generateAboutPage()),
 
       fsp.writeFile(
         'site/archive/all.html',
@@ -45,12 +46,12 @@ const build = () => (
     .then(() => console.log('Built. Site origin: ' + getSiteOrigin()))
 )
 
-const generateIndexPage = () => (
+const generateAboutPage = () => (
   generateSitePage(
-    `<title>Index</title>`,
+    `<title>Blog</title>`,
 
     fixWS`
-      <h1>Index</h1>
+      <h1>towerofnix's Blog Site</h1>
 
       <p>
         Welcome to the site! It's pretty blank right now, but it'll hopefully
@@ -90,7 +91,8 @@ const generateSitePage = (head, body) => (
       <body>
         <div id='main'>
           <div id='nav'>
-            <a href='index.html'>(Index.)</a>
+            <a href='index.html'>(Front.)</a>
+            <a href='about.html'>(About!)</a>
             <a href='archive.html'>(Archive.)</a>
           </div>
           <div id='content'>
