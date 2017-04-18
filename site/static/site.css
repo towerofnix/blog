@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Martel:700');
+
+body {
+  background-color: hsl(60, 70%, 95%);
+  color: #333;
+  font-family: 'Merriweather';
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+#nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 4px;
+}
+
+#main {
+  background-color: hsl(60, 50%, 97%);
+  padding: 30px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: auto;
+}
+
+a {
+  color: #777;
+}
+
+table {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 2.4em;
+  font-family: Martel;
+}
+
+h1 {
+  margin-bottom: 0.3em;
+  font-weight: 800;
+}
+
+.post-meta {
+  font-style: italic;
+  color: #AAA;
+}

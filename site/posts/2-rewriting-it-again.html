@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href='http://localhost:8000'>
+    <title>Rewriting it Again</title>
+    <link rel='stylesheet' href='static/site.css'>
+  </head>
+  <body>
+    <div id='main'>
+      <div id='nav'>
+        <a href='index.html'>(Index.)</a>
+        <a href='archive.html'>(Archive.)</a>
+      </div>
+      <div id='content'>
+        <h1 id="rewriting-it-again">Rewriting it Again</h1>
+        <p>It&#39;s been brought to my attention that my blog requires JavaScript to operate
+        even the slightest reasonable amount. (It&#39;s true! Have you tried opening the
+        site with JavaScript disabled?) I agree that that&#39;s bad for a number of
+        reasons:</p>
+        <ul>
+        <li><p>Anybody using a web browser without JavaScript has to go to the
+        <em>code repository</em> to read the posts. I repeat - <em>code repository</em>.</p>
+        </li>
+        <li><p>Most websites work without JavaScript enabled, and a blog certainly has no
+        good real-world excuse to require the language.</p>
+        </li>
+        <li><p>Having a single-page layout works really badly for a whole host of reasons,
+        including Google indexing, Disqus comment sharing, and jumping to an element
+        with an ID (you know, stuff like <code>index.html#contact</code>), which are all
+        relatively important things.</p>
+        </li>
+        </ul>
+        <p>So I&#39;m rewriting the blog again. This time every update will be automatically
+        converted by my own computer into static HTML documents. I&#39;m pretty sure that&#39;s
+        how most serverless blogs work.</p>
+        <p>In the meanwhile, here&#39;s a quick picture of something that happened to one of
+        my characters when I failed to draw their hair well:</p>
+        <p><img src="static/media/01-oops.png" alt="Oops, this was not intentional"></p>
+        
+        <p class='post-meta'>(-towerofnix, <time datetime='2017-4-12'>April 12, 2017</time>)</p>
+        <div id='disqus_thread'></div>
+        <hr>
+        <p>(This is a local build of the site - comments will appear here
+        when on a published build.)</p>
+      </div>
+    </div>
+  </body>
+</html>
