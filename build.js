@@ -85,6 +85,7 @@ const generateSitePage = (head, body) => (
     <html>
       <head>
         <base href='${getSiteOrigin()}'>
+        <meta charset='utf-8'>
         ${head}
         <link rel='stylesheet' href='static/site.css'>
       </head>
