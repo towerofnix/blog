@@ -4,6 +4,7 @@
     date: {m: 4, d: 20, y: 2017}
     categories:
     - 'text'
+    - 'art'
 
 ---
 
