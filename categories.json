@@ -1,11 +1,16 @@
 {
-  "text": {
-    "title": "Text-based Posts",
-    "description": "Particularly wordy posts."
+  "art": {
+    "title": "Art",
+    "description": "\"Artistic\" creations (probably things I've made)."
   },
 
   "blog-dev": {
     "title": "Blog Development",
     "description": "Posts related to developing the blog."
+  },
+
+  "text": {
+    "title": "Text-based Posts",
+    "description": "Particularly wordy posts."
   }
 }
