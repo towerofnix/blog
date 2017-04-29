@@ -5,7 +5,7 @@ const promisify = require('promisify-native')
 const fixWS = require('fix-whitespace')
 const ncp = promisify(require('ncp').ncp)
 
-const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000')
+const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000/')
 
 const build = () => (
   fsp.readdir('posts')
@@ -14,7 +14,6 @@ const build = () => (
     )))
     .then(contents => contents.map(parsePostText))
     .then(posts => Promise.all([
-      fsp.writeFile('site/index.html', generatePostPage(getLatestPost(posts))),
       fsp.writeFile('site/about.html', generateAboutPage()),
 
       fsp.writeFile(
@@ -23,23 +22,27 @@ const build = () => (
         'utf-8'
       ),
 
-      ...posts.map(
-        post => fsp.writeFile(
-          'site/' + getPermalink(post),
-          generatePostPage(post)
-        )
-      ),
-
       getCategoryData()
-        .then(categoryData => (
+        .then(categoryData => Promise.all([
           fsp.writeFile(
             'site/archive.html',
-            generateArchiveCategoriesPage(categoryData),
-            'utf-8'
-          )
-        )),
+            generateArchiveCategoriesPage(categoryData)
+          ),
 
-      writeCategoryPages(posts),
+          fsp.writeFile(
+            'site/index.html',
+            generatePostPage(getLatestPost(posts), categoryData)
+          ),
+
+          ...posts.map(
+            post => fsp.writeFile(
+              'site/' + getPostPath(post),
+              generatePostPage(post, categoryData)
+            )
+          ),
+
+          writeCategoryPages(posts, categoryData)
+        ])),
 
       ncp('static', 'site/static')
     ]))
@@ -66,18 +69,38 @@ const generateAboutPage = () => (
   )
 )
 
-const generatePostPage = post => (
-  generateSitePage(
+const generatePostPage = (post, categoryData) => {
+  const categories = post.config.categories
+
+  const categoryLinks = (
+    (categories && categories.length > 0)
+    ? categories.map(id => fixWS`
+      <a href='${getCategoryPath(id)}'>${categoryData[id].title}</a>
+    `)
+    : null
+  )
+
+  const categoryLinkText = (
+    categoryLinks
+    ? 'categories: ' + categoryLinks.join(', ')
+    : 'no categories'
+  )
+
+  return generateSitePage(
     `<title>${post.config.title}</title>`,
 
     fixWS`
       ${post.html}
-      <p class='post-meta'>(-towerofnix, ${getTimeElement(post)})</p>
+      <p class='post-meta'>
+        (-towerofnix,
+          <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>;
+          ${categoryLinkText})
+      </p>
       <div id='disqus_thread'></div>
-      ${generateDisqusEmbedScript(post.config.permalink, getPermalink(post))}
+      ${generateDisqusEmbedScript(post.config.permalink, getPostPermalink(post))}
     `
   )
-)
+}
 
 const generateSitePage = (head, body) => (
   fixWS`
@@ -131,17 +154,16 @@ const generateArchiveCategoriesPage = (categoryData) => (
   )
 )
 
-const writeCategoryPages = posts => (
-  getCategoryData()
-    .then(categories => Object.entries(categories).map(
-      ([id, cat]) => fsp.writeFile(
-        `site/archive/${id}.html`,
-        generateArchiveCategoryPage(
-          cat.title, cat.description,
-          posts.filter(post => post.config.categories.includes(id))
-        )
+const writeCategoryPages = (posts, categoryData) => (
+  Object.entries(categoryData).map(
+    ([id, cat]) => fsp.writeFile(
+      'site/' + getCategoryPath(id),
+      generateArchiveCategoryPage(
+        cat.title, cat.description,
+        posts.filter(post => post.config.categories.includes(id))
       )
-    ))
+    )
+  )
 )
 
 const generateArchiveCategoryPage = (title, description, posts) => (
@@ -164,7 +186,7 @@ const generateArchiveTable = posts => (
         ${
           posts.map(
             post => {
-              const link = getPermalink(post)
+              const link = getPostPath(post)
 
               return fixWS`
                 <tr>
@@ -204,8 +226,8 @@ const generateDisqusEmbedScript = (identifier, permalink) => (
       <script>
         function disqus_config() {
           console.log(this)
-          this.page.url = '${getSiteOrigin() + permalink}'
-          this.page.identifier  = '${permalink}'
+          this.page.url = '${permalink}'
+          this.page.identifier = '${permalink}'
         }
 
         (function() {
@@ -255,8 +277,16 @@ const parsePostText = text => {
   }
 }
 
-const getPermalink = post => (
+const getPostPath = post => (
   `posts/${post.config.permalink}.html`
+)
+
+const getPostPermalink = post => (
+  getSiteOrigin() + getPostPath(post)
+)
+
+const getCategoryPath = id => (
+  `archive/${id}.html`
 )
 
 const getCategoryData = () => (
