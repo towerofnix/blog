@@ -25,6 +25,10 @@ a {
   color: #777;
 }
 
+#main a:visited {
+  color: #555;
+}
+
 table {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -36,13 +40,18 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: 2.4em;
   font-family: Martel;
 }
 
 h1 {
+  font-size: 2.4em;
   margin-bottom: 0.3em;
   font-weight: 800;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 0.2em;
 }
 
 .post-meta {
