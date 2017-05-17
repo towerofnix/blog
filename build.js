@@ -182,6 +182,10 @@ const generateArchiveCategoryPage = (title, description, posts) => (
 const generateArchiveTable = posts => (
   fixWS`
     <table>
+      <colgroup>
+        <col>
+        <col class="date-col">
+      </colgroup>
       <tbody>
         ${
           posts.map(
