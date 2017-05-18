@@ -1,5 +1,5 @@
 
-    title: 'Quick update'
+    title: "Quick update"
     permalink: '7-quick-update'
     date: {m: 5, d: 6, y: 2017}
     categories:

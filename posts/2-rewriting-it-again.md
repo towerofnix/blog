@@ -1,5 +1,5 @@
 
-    title: 'Rewriting it Again'
+    title: "Rewriting it Again"
     permalink: '2-rewriting-it-again'
     date: {m: 4, d: 12, y: 2017}
     categories:

@@ -1,5 +1,5 @@
 
-    title: 'Better Art'
+    title: "Better Art"
     permalink: '5-better-art'
     date: {m: 4, d: 20, y: 2017}
     categories:

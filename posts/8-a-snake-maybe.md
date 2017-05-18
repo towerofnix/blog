@@ -1,5 +1,5 @@
 
-    title: 'A snake, maybe?'
+    title: "A snake, maybe?"
     permalink: '8-a-snake-maybe'
     date: {m: 5, d: 13, y: 2017}
     categories:

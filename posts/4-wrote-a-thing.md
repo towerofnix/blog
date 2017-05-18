@@ -1,5 +1,5 @@
 
-    title: 'I Wrote a Thing'
+    title: "I Wrote a Thing"
     permalink: '4-wrote-a-thing'
     date: {m: 4, d: 18, y: 2017}
     categories:

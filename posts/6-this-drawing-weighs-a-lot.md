@@ -1,5 +1,5 @@
 
-    title: 'This drawing weighs a lot'
+    title: "This drawing weighs a lot"
     permalink: '6-this-drawing-weighs-a-lot'
     date: {m: 4, d: 22, y: 2017}
     categories:
