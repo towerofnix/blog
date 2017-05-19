@@ -51,7 +51,12 @@ const build = () => (
 
 const generateAboutPage = () => (
   generateSitePage(
-    `<title>Blog</title>`,
+    fixWS`
+      <title>Blog</title>
+      ${descriptionMeta(
+        "The (slightly) extended description of towerofnix's blog."
+      )}
+    `,
 
     fixWS`
       <h1>towerofnix's Blog Site</h1>
@@ -88,6 +93,9 @@ const generatePostPage = (post, categoryData) => {
 
   return generateSitePage(
     `<title>${post.config.title}</title>`,
+    // No description-meta here.. yet. In theory there should be, but Google
+    // does a pretty good job at guessing descriptions from the content of
+    // the post.
 
     fixWS`
       ${post.html}
@@ -141,7 +149,12 @@ const generateArchivePage = posts => (
 
 const generateArchiveCategoriesPage = (categoryData) => (
   generateSitePage(
-    `<title>Archive</title>`,
+    fixWS`
+      <title>Archive</title>
+      ${descriptionMeta(
+        "A list of categories the posts on the blog are organized into."
+      )}
+    `,
 
     fixWS`
       <h1>Archive</h1>
@@ -168,7 +181,10 @@ const writeCategoryPages = (posts, categoryData) => (
 
 const generateArchiveCategoryPage = (title, description, posts) => (
   generateSitePage(
-    `<title>Archive${title ? ` - ${title}` : ''}</title>`,
+    fixWS`
+      <title>Archive${title ? ` - ${title}` : ''}</title>
+      ${descriptionMeta(description)}
+    `,
 
     fixWS`
       <h1>${title || 'Archive'}</h1>
@@ -366,6 +382,15 @@ const asHumanReadableDate = date => {
 }
 
 const getSiteOrigin = () => SITE_ORIGIN
+
+const descriptionMeta = text => {
+  const escapedText = text.replace(/"/g, '&quot;')
+  const firstLine = escapedText.split('\n')[0] // Line breaks are BAD!
+
+  return fixWS`
+    <meta name='Description' content="${firstLine}">
+  `
+}
 
 build()
   .catch(error => console.error(
