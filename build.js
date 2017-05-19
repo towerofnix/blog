@@ -294,8 +294,22 @@ const getCategoryPath = id => (
 )
 
 const getCategoryData = () => (
-  fsp.readFile('categories.json', 'utf-8')
-    .then(JSON.parse)
+  fsp.readFile('categories.yaml', 'utf-8')
+    .then(text => yaml.safeLoad(text))
+    .then(
+      yamlObj => {
+        const ret = {}
+
+        for (let entry of yamlObj.categories) {
+          ret[entry.id] = entry
+        }
+
+        return ret
+      },
+      err => {
+        throw new Error("YAML Error: " + err.message, err)
+      }
+    )
 )
 
 const getLatestPost = posts => {
