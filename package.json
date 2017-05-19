@@ -6,5 +6,29 @@
     "marked": "^0.3.6",
     "ncp": "^2.0.0",
     "promisify-native": "^1.0.0"
-  }
+  },
+  "name": "blog",
+  "description": "A new version of the old blog. Static pages are served now, so that's good. Check out the blog online here! https://liam4.github.io/blog/",
+  "version": "1.0.0",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js",
+    "publish": "export BLOG_ORIGIN='https://liam4.github.io/blog/' && node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liam4/blog.git"
+  },
+  "keywords": [
+    "gh-pages",
+    "blogs",
+    "blog-engine"
+  ],
+  "author": "towerofnix",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liam4/blog/issues"
+  },
+  "homepage": "https://github.com/liam4/blog#readme"
 }
