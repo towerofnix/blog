@@ -190,7 +190,7 @@ const generateArchiveCategoryPage = (title, description, posts) => (
       <h1>${title || 'Archive'}</h1>
       <p>${description}</p>
 
-      ${generateArchiveTable(posts)}
+      ${generateArchiveTable(posts.sort((a, b) => getDate(a) - getDate(b)))}
     `
   )
 )
