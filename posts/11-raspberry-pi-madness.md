@@ -23,7 +23,7 @@ It's also just fun to look at. I took a picture of it:
 
 ![Setup](static/media/11-setup.png)
 
-(That picture looks an awful lot like an album cover.s)
+(That picture looks an awful lot like an album cover.)
 
 Although my new setup is a bit less crazy (I got rid of the HDMI output,
 keyboard and mouse).
@@ -116,7 +116,7 @@ the title of the song[\*] and the download link for it. Clearly we'll need the
 download link. It's just the HTTP URL we can fetch to download the track; so
 that's what we do.
 
-[\*] Really the text between `<a href="..">` and `<`(`/a>`); not the actual
+[\*] Really the text between `<a href="..">` and `</a>`; not the actual
 title of the track that's stored in the file's metadata. I'm too lazy to
 figure out how to get that, plus I think some formats don't even have any
 metadata of that sort.
