@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Martel:700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Martel:700|Ubuntu+Mono');
 
 body {
   background-color: hsl(60, 70%, 95%);
@@ -48,6 +48,12 @@ h1 {
 h2 {
   font-size: 1.8em;
   margin-bottom: 0.2em;
+}
+
+code {
+  font-family: 'Ubuntu Mono';
+  background-color: hsl(60, 75%, 92%);
+  padding: 0.1em 0.25em;
 }
 
 /* Tables */
