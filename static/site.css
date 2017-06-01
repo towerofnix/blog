@@ -56,6 +56,11 @@ code {
   padding: 0.1em 0.25em;
 }
 
+blockquote {
+  color: #999;
+  font-style: italic;
+}
+
 /* Tables */
 
 table {
