@@ -1,11 +1,9 @@
 {
   "dependencies": {
     "fix-whitespace": "^1.0.2",
-    "fs-promise": "^2.0.2",
     "js-yaml": "^3.8.3",
     "marked": "^0.3.6",
-    "ncp": "^2.0.0",
-    "promisify-native": "^1.0.0"
+    "ncp": "^2.0.0"
   },
   "name": "blog",
   "description": "A new version of the old blog. Static pages are served now, so that's good. Check out the blog online here! https://liam4.github.io/blog/",

@@ -1,22 +1,27 @@
-const fsp = require('fs-promise')
+const fs = require('fs')
 const yaml = require('js-yaml')
 const marked = require('marked')
-const promisify = require('promisify-native')
 const fixWS = require('fix-whitespace')
+
+const { promisify } = require('util')
+
 const ncp = promisify(require('ncp').ncp)
+const writeFile = promisify(fs.writeFile)
+const readFile = promisify(fs.readFile)
+const readDir = promisify(fs.readdir)
 
 const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000/')
 
 const build = () => (
-  fsp.readdir('posts')
+  readDir('posts')
     .then(postFiles => Promise.all(postFiles.map(
-      f => fsp.readFile('posts/' + f, 'utf-8')
+      f => readFile('posts/' + f, 'utf-8')
     )))
     .then(contents => contents.map(parsePostText))
     .then(posts => Promise.all([
-      fsp.writeFile('site/about.html', generateAboutPage()),
+      writeFile('site/about.html', generateAboutPage()),
 
-      fsp.writeFile(
+      writeFile(
         'site/archive/all.html',
         generateArchivePage(posts),
         'utf-8'
@@ -24,18 +29,18 @@ const build = () => (
 
       getCategoryData()
         .then(categoryData => Promise.all([
-          fsp.writeFile(
+          writeFile(
             'site/archive.html',
             generateArchiveCategoriesPage(categoryData)
           ),
 
-          fsp.writeFile(
+          writeFile(
             'site/index.html',
             generatePostPage(getLatestPost(posts), categoryData)
           ),
 
           ...posts.map(
-            post => fsp.writeFile(
+            post => writeFile(
               'site/' + getPostPath(post),
               generatePostPage(post, categoryData)
             )
@@ -169,7 +174,7 @@ const generateArchiveCategoriesPage = (categoryData) => (
 
 const writeCategoryPages = (posts, categoryData) => (
   Object.entries(categoryData).map(
-    ([id, cat]) => fsp.writeFile(
+    ([id, cat]) => writeFile(
       'site/' + getCategoryPath(id),
       generateArchiveCategoryPage(
         cat.title, cat.description,
@@ -310,7 +315,7 @@ const getCategoryPath = id => (
 )
 
 const getCategoryData = () => (
-  fsp.readFile('categories.yaml', 'utf-8')
+  readFile('categories.yaml', 'utf-8')
     .then(text => yaml.safeLoad(text))
     .then(
       yamlObj => {
