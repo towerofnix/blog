@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href='http://localhost:8000/'>
+    <base href='https://liam4.github.io/blog/'>
     <meta charset='utf-8'>
     <title>Quick update</title>
     <link rel='stylesheet' href='static/site.css'>
@@ -85,13 +85,25 @@
         
         <p class='post-meta'>
           (-towerofnix,
-            <a href='http://localhost:8000/posts/7-quick-update.html'><time datetime='2017-5-6'>May 6, 2017</time></a>;
+            <a href='https://liam4.github.io/blog/posts/7-quick-update.html'><time datetime='2017-5-6'>May 6, 2017</time></a>;
             categories: <a href='archive/art.html'>Art</a>, <a href='archive/text.html'>Text-based Posts</a>)
         </p>
         <div id='disqus_thread'></div>
-        <hr>
-        <p>(This is a local build of the site - comments will appear here
-        when on a published build.)</p>
+        <script>
+          function disqus_config() {
+            console.log(this)
+            this.page.url = 'https://liam4.github.io/blog/posts/7-quick-update.html'
+            this.page.identifier = 'https://liam4.github.io/blog/posts/7-quick-update.html'
+          }
+        
+          (function() {
+            var d = document, s = d.createElement('script')
+            s.src = 'https://another-blog-test.disqus.com/embed.js'
+            s.setAttribute('data-timestamp', +new Date())
+            var e = (d.head || d.body)
+            e.appendChild(s)
+          })()
+        </script>
       </div>
     </div>
   </body>
