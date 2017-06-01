@@ -3,6 +3,7 @@
     date: {m: 5, d: 26, y: 2017}
     categories:
     - 'text'
+    - 'dev'
 
 ---
 

@@ -4,9 +4,9 @@ categories:
   title: "Art"
   description: "\"Artistic\" creations (probably things I've made)."
 
-- id: 'blog-dev'
-  title: "Blog Development"
-  description: "Posts related to developing the blog."
+- id: 'dev'
+  title: "Development"
+  description: "Posts related to developing things."
 
 - id: 'text'
   title: "Text-based Posts"

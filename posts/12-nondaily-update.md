@@ -4,7 +4,7 @@
     date: {m: 5, d: 31, y: 2017}
     categories:
     - 'text'
-    - 'blog-dev'
+    - 'dev'
 
 ---
 
