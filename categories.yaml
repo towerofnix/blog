@@ -6,7 +6,7 @@ categories:
 
 - id: 'dev'
   title: "Development"
-  description: "Posts related to developing things."
+  description: "Posts related to programming things."
 
 - id: 'text'
   title: "Text-based Posts"
