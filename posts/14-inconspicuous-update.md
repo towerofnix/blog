@@ -8,6 +8,8 @@
 
 ---
 
+# Inconspicuous Update
+
 Writing about the things I've done is fun, and maybe even interesting to some,
 so since I wrote a particularly in-depth entry for today's occurings, I figured
 I'd share that. Onwards!
