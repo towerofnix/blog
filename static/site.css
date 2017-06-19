@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,700|Martel:700|Ubuntu+Mono');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css');
 
 body {
   background-color: hsl(60, 70%, 95%);
@@ -63,6 +64,10 @@ code {
 blockquote {
   color: #999;
   font-style: italic;
+}
+
+.katex {
+  font-size: 20px;
 }
 
 /* Tables */

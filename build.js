@@ -2,6 +2,7 @@ const fs = require('fs')
 const yaml = require('js-yaml')
 const marked = require('marked')
 const fixWS = require('fix-whitespace')
+const mjAPI = require('mathjax-node')
 
 const { promisify } = require('util')
 
@@ -12,12 +13,32 @@ const readDir = promisify(fs.readdir)
 
 const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000/')
 
+mjAPI.config({
+  MathJax: {}
+})
+
+mjAPI.start()
+
+const mathjaxTypeset = mathText => new Promise((resolve, reject) => {
+  mjAPI.typeset({
+    math: mathText,
+    format: 'TeX',
+    svg: true
+  }, function(data) {
+    if (data.errors) {
+      reject(data.errors)
+    } else {
+      resolve(data.svg)
+    }
+  })
+})
+
 const build = () => (
   readDir('posts')
     .then(postFiles => Promise.all(postFiles.map(
       f => readFile('posts/' + f, 'utf-8')
     )))
-    .then(contents => contents.map(parsePostText))
+    .then(contents => Promise.all(contents.map(parsePostText)))
     .then(posts => Promise.all([
       writeFile('site/about.html', generateAboutPage()),
 
@@ -273,7 +294,7 @@ const generateDisqusEmbedScript = (identifier, permalink) => (
   )
 )
 
-const parsePostText = text => {
+const parsePostText = async (text) => {
   // Parses the text contents of a post .md file.
   //
   // YAML configuration is stored before a '---' separator. Markdown content
@@ -296,9 +317,41 @@ const parsePostText = text => {
     throw new Error('Invalid YAML: ' + err.message)
   }
 
+  // We SHOULD use a custom Marked renderer, but MathJax runs asynchronously,
+  // while marked expects a synchronous value. To be fair you could hack around
+  // that (e.g. by storing a key to each math element, and then rendering those
+  // after running marked), but that's a little yucky, and we can get inline
+  // math if we deal with MathJax and Marked separately. (However, I'm too
+  // lazy to do that.)
+
+  const regex = /<pre class='math'>([\s\S]+?)<\/pre>/gm
+
+  let processedMarkdown = ''
+  let lastIndex = 0
+
+  while (true) {
+    const match = regex.exec(markdown)
+
+    if (match) {
+      const mathText = match[1]
+
+      const math = await mathjaxTypeset(mathText)
+
+      processedMarkdown += markdown.slice(lastIndex, match.index)
+
+      processedMarkdown += '<p>' + math + '</p>'
+
+      lastIndex = regex.lastIndex
+    } else {
+      break
+    }
+  }
+
+  processedMarkdown += markdown.slice(lastIndex)
+
   return {
     config: yaml.safeLoad(code),
-    html: marked(markdown)
+    html: marked(processedMarkdown)
   }
 }
 
