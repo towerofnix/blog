@@ -19,10 +19,9 @@ mjAPI.config({
 
 mjAPI.start()
 
-const mathjaxTypeset = mathText => new Promise((resolve, reject) => {
+const mathjaxTypeset = (math, format) => new Promise((resolve, reject) => {
   mjAPI.typeset({
-    math: mathText,
-    format: 'TeX',
+    math, format,
     svg: true
   }, function(data) {
     if (data.errors) {
@@ -321,33 +320,36 @@ const parsePostText = async (text) => {
   // while marked expects a synchronous value. To be fair you could hack around
   // that (e.g. by storing a key to each math element, and then rendering those
   // after running marked), but that's a little yucky, and we can get inline
-  // math if we deal with MathJax and Marked separately. (However, I'm too
-  // lazy to do that.)
+  // math if we deal with MathJax and Marked separately.
 
-  const regex = /<pre class='math'>([\s\S]+?)<\/pre>/gm
+  let processedMarkdown = markdown
 
-  let processedMarkdown = ''
-  let lastIndex = 0
+  processedMarkdown = await processMarkdown(processedMarkdown,
+    /<pre class='math'>([\s\S]+?)<\/pre>/g,
 
-  while (true) {
-    const match = regex.exec(markdown)
-
-    if (match) {
+    match => {
       const mathText = match[1]
 
-      const math = await mathjaxTypeset(mathText)
-
-      processedMarkdown += markdown.slice(lastIndex, match.index)
-
-      processedMarkdown += '<p>' + math + '</p>'
-
-      lastIndex = regex.lastIndex
-    } else {
-      break
+      return mathjaxTypeset(mathText, 'TeX')
+        .then(math => `<p class='math'>${math}</p>`)
     }
-  }
+  )
 
-  processedMarkdown += markdown.slice(lastIndex)
+  processedMarkdown = await processMarkdown(processedMarkdown,
+    /<code class='math'>([\s\S]+?)<\/code>/g,
+
+    match => {
+      const mathText = match[1]
+
+      return mathjaxTypeset(mathText, 'inline-TeX')
+        // Nobody knows why, but adding whitespace between the <span> and
+        // ${math} magically makes inline TeX work..
+        .then(math => fixWS`
+          <span class='inline-math'>
+            ${math}</span>
+        `)
+    }
+  )
 
   return {
     config: yaml.safeLoad(code),
@@ -448,6 +450,27 @@ const descriptionMeta = text => {
   return fixWS`
     <meta name='Description' content="${firstLine}">
   `
+}
+
+const processMarkdown = async (markdown, regex, matchFunction) => {
+  let processedMarkdown = ''
+  let lastIndex = 0
+
+  while (true) {
+    const match = regex.exec(markdown)
+
+    if (match) {
+      processedMarkdown += markdown.slice(lastIndex, match.index)
+      processedMarkdown += await matchFunction(match)
+      lastIndex = regex.lastIndex
+    } else {
+      break
+    }
+  }
+
+  processedMarkdown += markdown.slice(lastIndex)
+
+  return processedMarkdown
 }
 
 build()
