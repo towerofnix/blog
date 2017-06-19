@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather|Martel:700|Ubuntu+Mono');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700|Martel:700|Ubuntu+Mono');
 
 body {
   background-color: hsl(60, 70%, 95%);
@@ -31,6 +31,10 @@ a {
   color: #555;
 }
 
+b {
+  font-weight: 700;
+}
+
 img {
   max-width: 100%;
 }
@@ -42,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 2.4em;
   margin-bottom: 0.3em;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 h2 {
