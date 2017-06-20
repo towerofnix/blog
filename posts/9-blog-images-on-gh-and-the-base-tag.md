@@ -2,8 +2,8 @@
     permalink: '9-blog-images-on-gh-and-the-base-tag'
     date: {m: 5, d: 17, y: 2017}
     categories:
-    - 'text'
     - 'dev'
+    - 'text'
 
 ---
 

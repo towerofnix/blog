@@ -3,8 +3,9 @@
     permalink: '2-rewriting-it-again'
     date: {m: 4, d: 12, y: 2017}
     categories:
-    - 'text'
+    - 'art'
     - 'dev'
+    - 'text'
 
 ---
 

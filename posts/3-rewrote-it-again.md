@@ -3,8 +3,8 @@
     permalink: '3-rewrote-it-again'
     date: {m: 4, d: 14, y: 2017}
     categories:
-    - 'text'
     - 'dev'
+    - 'text'
 
 ---
 
