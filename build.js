@@ -34,6 +34,9 @@ const mathjaxTypeset = (math, format) => new Promise((resolve, reject) => {
 
 const build = () => (
   readDir('posts')
+    // .DS_Store was being caught before this filter was added.. oops!
+    .then(postFiles => postFiles.filter(item => item.endsWith('.md')))
+
     .then(postFiles => Promise.all(postFiles.map(
       f => readFile('posts/' + f, 'utf-8')
     )))
