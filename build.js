@@ -42,13 +42,18 @@ const build = () => (
     )))
     .then(contents => Promise.all(contents.map(parsePostText)))
     .then(posts => Promise.all([
-      writeFile('site/about.html', generateAboutPage()),
+      readFile('pages/about.md', 'utf-8')
+        .then(md => writeFile('site/about.html', generateStaticPage(
+          md,
+          fixWS`
+            <title>Blog</title>
+            ${descriptionMeta(
+              "The (slightly) extended description of towerofnix's blog."
+            )}
+          `
+        ))),
 
-      writeFile(
-        'site/archive/all.html',
-        generateArchivePage(posts),
-        'utf-8'
-      ),
+      writeFile('site/archive/all.html', generateArchivePage(posts)),
 
       getCategoryData()
         .then(categoryData => Promise.all([
@@ -77,29 +82,8 @@ const build = () => (
     .then(() => console.log('Built. Site origin: ' + getSiteOrigin()))
 )
 
-const generateAboutPage = () => (
-  generateSitePage(
-    fixWS`
-      <title>Blog</title>
-      ${descriptionMeta(
-        "The (slightly) extended description of towerofnix's blog."
-      )}
-    `,
-
-    fixWS`
-      <h1>towerofnix's Blog Site</h1>
-
-      <p>
-        Welcome to the site! It's pretty blank right now, but it'll hopefully
-        work well enough as a basic blog. It's been <a href='posts/2-rewriting-it-again.html'>rewritten again</a>
-        to be better in general, so now you should be able to browse the site on all your
-        <a href='https://en.wikipedia.org/wiki/Comparison_of_web_browsers#JavaScript_support'>stupid browsers</a>.
-      </p>
-
-      <p>It'd probably be best to start at the
-      <a href='archive.html'>archive</a>.</p>
-    `
-  )
+const generateStaticPage = (md, head = '') => (
+  generateSitePage(head, marked(md))
 )
 
 const generatePostPage = (post, categoryData) => {
