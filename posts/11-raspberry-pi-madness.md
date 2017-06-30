@@ -1,6 +1,9 @@
+
     title: "Raspberry Pi madness"
     permalink: '11-raspberry-pi-madness'
     date: {m: 5, d: 26, y: 2017}
+    thumbnail: 'static/media/11-setup.png'
+    presentArt: true # ..this should probably be presentImage..
     categories:
     - 'text'
     - 'dev'

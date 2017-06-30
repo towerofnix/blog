@@ -2,6 +2,8 @@
     title: "First Post"
     permalink: '1-first-post'
     date: {m: 4, d: 10, y: 2017}
+    thumbnail: 'static/media/00-puppet-thing.png'
+    presentArt: true
     categories:
     - 'art'
     - 'text'

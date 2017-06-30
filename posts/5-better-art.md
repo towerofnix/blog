@@ -2,6 +2,8 @@
     title: "Better Art"
     permalink: '5-better-art'
     date: {m: 4, d: 20, y: 2017}
+    thumbnail: 'static/media/05-character.png'
+    presentArt: true
     categories:
     - 'art'
     - 'text'

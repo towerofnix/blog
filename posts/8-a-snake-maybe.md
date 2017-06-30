@@ -2,6 +2,8 @@
     title: "A snake, maybe?"
     permalink: '8-a-snake-maybe'
     date: {m: 5, d: 13, y: 2017}
+    thumbnail: 'static/media/08-a-snake-maybe.png'
+    presentArt: true
     categories:
     - 'art'
 

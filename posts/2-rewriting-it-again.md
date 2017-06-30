@@ -2,6 +2,8 @@
     title: "Rewriting it Again"
     permalink: '2-rewriting-it-again'
     date: {m: 4, d: 12, y: 2017}
+    thumbnail: 'static/media/01-oops.png'
+    presentArt: true
     categories:
     - 'art'
     - 'dev'

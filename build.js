@@ -104,11 +104,15 @@ const generatePostPage = (post, categoryData) => {
       <title>${post.config.title}</title>
       ${generateMetaHead({
         'Description': getOneSentence(getPostDescription(post)),
-        'twitter:card': 'summary',
+        'twitter:card': post.config.presentArt ? 'summary_image' : 'summary',
         'twitter:site': '@towerofnix',
         'twitter:title': post.config.title,
         'twitter:description': getPostDescription(post),
-        'twitter:image': post.config.thumbnail || null,
+        'twitter:image': (
+          post.config.thumbnail
+          ? (getSiteOrigin() + post.config.thumbnail)
+          : null
+        ),
         'twitter:image:alt': null // </3 TODO: fix this?
       })}
     `,

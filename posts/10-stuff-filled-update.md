@@ -1,3 +1,4 @@
+
     title: "Stuff-filled update"
     permalink: '10-stuff-filled-update'
     date: {m: 5, d: 20, y: 2017}
