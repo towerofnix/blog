@@ -8,7 +8,7 @@ to someone.
 
 **towerofnix is really hard to pronounce and write and say. Any other names??**
 You might want to stick to towerofnix if you're specifically talking about,
-e.g., my blog, my YouTube channel, or whatever. That's the name I've taken
+e.g., my blog, my YouTube channel, or whatever. That's the username I've taken
 for myself, and it's what people can search to find me. Typically Florrie is
 best, but if you know me (i.e. have talked to me multiple times before,
 especially in contexts where I do or did use the name) I won't yell at you for
