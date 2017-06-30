@@ -104,10 +104,20 @@ const generatePostPage = (post, categoryData) => {
   )
 
   return generateSitePage(
-    `<title>${post.config.title}</title>`,
     // No description-meta here.. yet. In theory there should be, but Google
     // does a pretty good job at guessing descriptions from the content of
     // the post.
+    fixWS`
+      <title>${post.config.title}</title>
+      ${generateMetaHead({
+        'twitter:card': 'summary',
+        'twitter:site': '@towerofnix',
+        'twitter:title': post.config.title,
+        'twitter:description': getPostDescription(post),
+        'twitter:image': post.config.thumbnail || null,
+        'twitter:image:alt': null // </3 TODO: fix this?
+      })}
+    `,
 
     fixWS`
       ${post.html}
@@ -130,6 +140,7 @@ const generateSitePage = (head, body) => (
         <base href='${getSiteOrigin()}'>
         <meta charset='utf-8'>
         ${head}
+
         <link rel='stylesheet' href='static/site.css'>
       </head>
       <body>
@@ -147,6 +158,21 @@ const generateSitePage = (head, body) => (
     </html>
   `
 )
+
+const generateMetaHead = dict => {
+  return Object.entries(dict)
+    .filter(([ k, v ]) => v)
+
+    // fix-whitespace is broken??????? yikes.jpg
+    // .map(([ k, v ]) => fixWS`
+    //   <meta name='${k}' content="${v.replace(/"/g, '&quot;').replace(/\n/g, '__-\n-__')}">
+    // `)
+
+    .map(([ k, v ]) => (
+      `<meta name='${k}' content="${v.replace(/"/g, '&quot;')}">`
+    ))
+    .join('\n')
+}
 
 const generateArchivePage = posts => (
   generateArchiveCategoryPage(
@@ -340,7 +366,9 @@ const parsePostText = async (text) => {
 
   return {
     config: yaml.safeLoad(code),
-    html: marked(processedMarkdown)
+    html: marked(processedMarkdown),
+    markdown: markdown // Explicit is usually better than implicit
+    // (The meaning of the above comment is implied)
   }
 }
 
@@ -351,6 +379,55 @@ const getPostPath = post => (
 const getPostPermalink = post => (
   getSiteOrigin() + getPostPath(post)
 )
+
+const getPostDescription = post => {
+  // TODO: Stupidify, make more stupid, etc
+
+  if (post.config.description) {
+    return post.config.description
+  }
+
+  // TODO: paragraphify is a thing I actually need to make at some point
+  const lines = post.markdown.split('\n')
+
+  // We're looking for the first paragraph, so we need to find the first and
+  // last line indexes of that paragraph (since my paragraphs typically span
+  // multiple lines in my markdown files).
+
+  let startI = 0;
+
+  while (
+    startI < lines.length &&
+    (
+      // Empty lines obviously aren't the beginning of a paragraph.
+      !lines[startI].trim().length ||
+
+      // These things are all definitely not things we want to be in the post
+      // description (i.e. they are not the beginning of a paragraph).
+      lines[startI].trim().startsWith('#') ||
+      lines[startI].trim().startsWith('<!--') ||
+      lines[startI].trim().startsWith('![')
+    )
+  ) {
+    startI++
+  }
+
+  // Once we've found the line the paragraph starts on, we only need to find
+  // the first empty line past that to get the ending line.
+
+  let endI = startI;
+
+  while (endI < lines.length && lines[endI].trim().length) {
+    endI++
+  }
+
+  const firstParagraphLines = lines.slice(startI, endI)
+  const firstParagraph = firstParagraphLines.join('\n')
+
+  console.log(firstParagraph)
+
+  return firstParagraph
+}
 
 const getCategoryPath = id => (
   `archive/${id}.html`
