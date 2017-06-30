@@ -103,7 +103,7 @@ const generatePostPage = (post, categoryData) => {
     fixWS`
       <title>${post.config.title}</title>
       ${generateMetaHead({
-        'Description': getPostDescription(post),
+        'Description': getOneSentence(getPostDescription(post)),
         'twitter:card': 'summary',
         'twitter:site': '@towerofnix',
         'twitter:title': post.config.title,
@@ -276,7 +276,7 @@ const generateArchiveCategoryPage = (title, description, posts) => {
     fixWS`
       <title>${fullTitle}</title>
       ${generateMetaHead({
-        'Description': getHTMLDescription(description),
+        'Description': getOneSentence(getHTMLDescription(description)),
         'twitter:card': 'summary',
         'twitter:site': '@towerofnix',
         'twitter:title': fullTitle,
@@ -464,6 +464,21 @@ const getHTMLDescription = html => {
   return $.root().text()
 }
 
+const getOneSentence = text => {
+  let i = 0
+
+  while (i < text.length && text[i - 1] !== '.') {
+    i++
+  }
+
+  const textRange = text.slice(0, i)
+  const sentence = textRange.replace(/\n/g, ' ')
+
+  console.log('Sentence:', sentence)
+
+  return sentence
+}
+
 const getCategoryPath = id => (
   `archive/${id}.html`
 )
@@ -541,15 +556,6 @@ const asHumanReadableDate = date => {
 }
 
 const getSiteOrigin = () => SITE_ORIGIN
-
-const descriptionMeta = text => {
-  const escapedText = text.replace(/"/g, '&quot;')
-  const firstLine = escapedText.split('\n')[0] // Line breaks are BAD!
-
-  return fixWS`
-    <meta name='Description' content="${firstLine}">
-  `
-}
 
 const processMarkdown = async (markdown, regex, matchFunction) => {
   let processedMarkdown = ''
