@@ -16,7 +16,7 @@ If I'm lucky you won't notice much of a difference in the actual site. It's
 got the same stylesheet it used to have. All of the webpage rendering is done
 on my computer before the site is published to GitHub Pages - *not* by your
 web browser. That means the site should work on practically any device,
-regardless of JavaScript support (though, of course, Discord still won't work
+regardless of JavaScript support (though, of course, Disqus still won't work
 on no-script browsers).
 
 There *is* a better archive section, though. It's now split into multiple

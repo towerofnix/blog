@@ -9,9 +9,10 @@ to someone.
 **towerofnix is really hard to pronounce and write and say. Any other names??**
 You might want to stick to towerofnix if you're specifically talking about,
 e.g., my blog, my YouTube channel, or whatever. That's the name I've taken
-for myself, and it's what people can search to find me. But otherwise, I've got
-a few; in order of how much I'd appreciate it (greatest to "please don't"):
-Florrie; Tower or Nix; Liam; and then some old names I've abandoned.
+for myself, and it's what people can search to find me. Typically Florrie is
+best, but if you know me (i.e. have talked to me multiple times before,
+especially in contexts where I do or did use the name) I won't yell at you for
+using Liam.
 
 I don't capitalize towerofnix, but you can and I won't yell at you for it.
 
