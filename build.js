@@ -3,6 +3,7 @@ const yaml = require('js-yaml')
 const marked = require('marked')
 const fixWS = require('fix-whitespace')
 const mjAPI = require('mathjax-node')
+const cheerio = require('cheerio')
 
 const { promisify } = require('util')
 
@@ -43,15 +44,7 @@ const build = () => (
     .then(contents => Promise.all(contents.map(parsePostText)))
     .then(posts => Promise.all([
       readFile('pages/about.md', 'utf-8')
-        .then(md => writeFile('site/about.html', generateStaticPage(
-          md,
-          fixWS`
-            <title>Blog</title>
-            ${descriptionMeta(
-              "The (slightly) extended description of towerofnix's blog."
-            )}
-          `
-        ))),
+        .then(md => writeFile('site/about.html', generateAboutPage(md))),
 
       writeFile('site/archive/all.html', generateArchivePage(posts)),
 
@@ -110,6 +103,7 @@ const generatePostPage = (post, categoryData) => {
     fixWS`
       <title>${post.config.title}</title>
       ${generateMetaHead({
+        'Description': getPostDescription(post),
         'twitter:card': 'summary',
         'twitter:site': '@towerofnix',
         'twitter:title': post.config.title,
@@ -127,13 +121,48 @@ const generatePostPage = (post, categoryData) => {
           ${categoryLinkText})
       </p>
       <div id='disqus_thread'></div>
-      ${generateDisqusEmbedScript(post.config.permalink, getPostPermalink(post))}
+      ${
+        generateDisqusEmbedScript(
+          post.config.permalink, getPostPermalink(post)
+        )
+      }
     `
   )
 }
 
-const generateSitePage = (head, body) => (
-  fixWS`
+const generateAboutPage = md => {
+  const description = (
+    "The (slightly) extended description of towerofnix's blog."
+  )
+
+  return generateStaticPage(
+    md,
+    fixWS`
+      <title>Blog</title>
+      ${generateMetaHead({
+        'Description': description,
+        'twitter:card': 'summary',
+        'twitter:site': '@towerofnix',
+        'twitter:title': "About",
+        'twitter:description': description,
+      })}
+    `
+  )
+}
+
+const generateSitePage = (head, body) => {
+  if (!head.includes('twitter')) {
+    // TODO: It would be really nice to be able to log the title of the page
+    // here! - But virtually impossible without being smart and parsing the
+    // head text.
+    console.warn('No twitter meta tags..?\n' + head + '\n\n')
+  }
+
+  if (!head.includes('Description')) {
+    console.warn('No Description meta tag..?\n' + head + '\n\n')
+  }
+
+  return fixWS`
     <!DOCTYPE html>
     <html>
       <head>
@@ -157,15 +186,30 @@ const generateSitePage = (head, body) => (
       </body>
     </html>
   `
-)
+}
 
 const generateMetaHead = dict => {
   return Object.entries(dict)
-    .filter(([ k, v ]) => v)
+    .filter(([ k, v ]) => {
+      if (!v) {
+        // It's normal to have a null value (that means "there's nothing in
+        // this field"), but for there to be an undefined value (or
+        // otherwise)..? That's strange!
+        if (v !== null) {
+          console.warn('Unset ' + k + '?', dict)
+        }
+
+        return false
+      }
+
+      return true
+    })
 
     // fix-whitespace is broken??????? yikes.jpg
     // .map(([ k, v ]) => fixWS`
-    //   <meta name='${k}' content="${v.replace(/"/g, '&quot;').replace(/\n/g, '__-\n-__')}">
+    //   <meta name='${k}' content="${
+    //     v.replace(/"/g, '&quot;').replace(/\n/g, '__-\n-__')
+    //   }">
     // `)
 
     .map(([ k, v ]) => (
@@ -185,13 +229,21 @@ const generateArchivePage = posts => (
   )
 )
 
-const generateArchiveCategoriesPage = (categoryData) => (
-  generateSitePage(
+const generateArchiveCategoriesPage = (categoryData) => {
+  const description = (
+    "A list of categories the posts on the blog are organized into."
+  )
+
+  return generateSitePage(
     fixWS`
       <title>Archive</title>
-      ${descriptionMeta(
-        "A list of categories the posts on the blog are organized into."
-      )}
+      ${generateMetaHead({
+        'Description': description,
+        'twitter:card': 'summary',
+        'twitter:site': '@towerofnix',
+        'twitter:title': 'Archive',
+        'twitter:description': description
+      })}
     `,
 
     fixWS`
@@ -203,7 +255,7 @@ const generateArchiveCategoriesPage = (categoryData) => (
       ${generateCategoryList(categoryData)}
     `
   )
-)
+}
 
 const writeCategoryPages = (posts, categoryData) => (
   Object.entries(categoryData).map(
@@ -217,11 +269,19 @@ const writeCategoryPages = (posts, categoryData) => (
   )
 )
 
-const generateArchiveCategoryPage = (title, description, posts) => (
-  generateSitePage(
+const generateArchiveCategoryPage = (title, description, posts) => {
+  const fullTitle = 'Archive' + (title ? ` - ${title}` : '')
+
+  return generateSitePage(
     fixWS`
-      <title>Archive${title ? ` - ${title}` : ''}</title>
-      ${descriptionMeta(description)}
+      <title>${fullTitle}</title>
+      ${generateMetaHead({
+        'Description': getHTMLDescription(description),
+        'twitter:card': 'summary',
+        'twitter:site': '@towerofnix',
+        'twitter:title': fullTitle,
+        'twitter:description': getHTMLDescription(description)
+      })}
     `,
 
     fixWS`
@@ -231,7 +291,7 @@ const generateArchiveCategoryPage = (title, description, posts) => (
       ${generateArchiveTable(posts.sort((a, b) => getDate(a) - getDate(b)))}
     `
   )
-)
+}
 
 const generateArchiveTable = posts => (
   fixWS`
@@ -381,52 +441,27 @@ const getPostPermalink = post => (
 )
 
 const getPostDescription = post => {
-  // TODO: Stupidify, make more stupid, etc
-
   if (post.config.description) {
     return post.config.description
   }
 
-  // TODO: paragraphify is a thing I actually need to make at some point
-  const lines = post.markdown.split('\n')
+  return getHTMLDescription(post.html)
+}
 
-  // We're looking for the first paragraph, so we need to find the first and
-  // last line indexes of that paragraph (since my paragraphs typically span
-  // multiple lines in my markdown files).
+const getHTMLDescription = html => {
+  const $ = cheerio.load(html)
 
-  let startI = 0;
+  // Some paragraphs can only include images; we don't want to use those for
+  // getting the description text.
+  for (let p of $('p').get()) {
+    const text = $(p).text()
 
-  while (
-    startI < lines.length &&
-    (
-      // Empty lines obviously aren't the beginning of a paragraph.
-      !lines[startI].trim().length ||
-
-      // These things are all definitely not things we want to be in the post
-      // description (i.e. they are not the beginning of a paragraph).
-      lines[startI].trim().startsWith('#') ||
-      lines[startI].trim().startsWith('<!--') ||
-      lines[startI].trim().startsWith('![')
-    )
-  ) {
-    startI++
+    if (text) {
+      return text
+    }
   }
 
-  // Once we've found the line the paragraph starts on, we only need to find
-  // the first empty line past that to get the ending line.
-
-  let endI = startI;
-
-  while (endI < lines.length && lines[endI].trim().length) {
-    endI++
-  }
-
-  const firstParagraphLines = lines.slice(startI, endI)
-  const firstParagraph = firstParagraphLines.join('\n')
-
-  console.log(firstParagraph)
-
-  return firstParagraph
+  return $.root().text()
 }
 
 const getCategoryPath = id => (
