@@ -124,12 +124,6 @@ const generatePostPage = (post, categoryData) => {
           <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>;
           ${categoryLinkText})
       </p>
-      <div id='disqus_thread'></div>
-      ${
-        generateDisqusEmbedScript(
-          post.config.permalink, getPostPermalink(post)
-        )
-      }
     `
   )
 }
@@ -339,35 +333,6 @@ const generateCategoryList = (categoryData) => (
       }
     </ul>
   `
-)
-
-const generateDisqusEmbedScript = (identifier, permalink) => (
-  (getSiteOrigin().indexOf('localhost') === -1)
-  ? (
-    fixWS`
-      <script>
-        function disqus_config() {
-          console.log(this)
-          this.page.url = '${permalink}'
-          this.page.identifier = '${permalink}'
-        }
-
-        (function() {
-          var d = document, s = d.createElement('script')
-          s.src = 'https://another-blog-test.disqus.com/embed.js'
-          s.setAttribute('data-timestamp', +new Date())
-          var e = (d.head || d.body)
-          e.appendChild(s)
-        })()
-      </script>
-    `
-  ) : (
-    fixWS`
-      <hr>
-      <p>(This is a local build of the site - comments will appear here
-      when on a published build.)</p>
-    `
-  )
 )
 
 const parsePostText = async (text) => {
