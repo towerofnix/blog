@@ -66,8 +66,12 @@ blockquote {
   font-style: italic;
 }
 
-.katex {
-  font-size: 20px;
+.inline-math img {
+  vertical-align: middle;
+}
+
+.inline-math {
+  break-inside: avoid;
 }
 
 /* Tables */

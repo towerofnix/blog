@@ -20,15 +20,17 @@ math..
 
 A *fraction* is sort of like a number made of two parts. For example, we might
 have a fraction made of the numbers 1 and 2, and we would write that as
-<code class='math'>\frac{1}{2}</code>. We could have another fraction
-made of the numbers 7 and 9, and that would be written as
-<code class='math'>\frac{7}{9}</code>.
+<code class='math' id='math-frac-1_2'>\frac{1}{2}</code>. We could have another
+fraction made of the numbers 7 and 9, and that would be written as
+<code class='math' id='math-frac-7_9'>\frac{7}{9}</code>.
 
 The *value* of a fraction is simply the fraction's top number (we call this its
 *numerator*) divided by its bottom number (the *denominator*):
-<code class='math'>\frac{9}{3} = 9 \div 3 = 3</code>,
-<code class='math'>\frac{100}{20} = 100 \div 20 = 5</code>, and so on.
-(To *evaluate* a fraction just means to replace that fraction with its value.)
+<code class='math' id='math-fracval-9_3'>\frac{9}{3} = 9 \div 3 = 3</code>,
+<code class='math' id='math-fracval-100_20'>\frac{100}{20} = 100 \div 20 = 5
+</code>,
+and so on. (To *evaluate* a fraction just means to replace that fraction with
+its value.)
 
 ---
 
@@ -36,25 +38,28 @@ You can do lots of cool things with fractions, but we're interested in
 *multiplying* them.
 
 Hopefully you already know how to multiply two normal numbers - for example,
-you should already know that <code class='math'>3 \times 7 = 21</code>,
-<code class='math'>2 \times 4 = 8</code>, and so on.
+you should already know that
+<code class='math' id='math-mul-3x7'>3 \times 7 = 21</code>,
+<code class='math' id='math-mul-2x4'>2 \times 4 = 8</code>, and so on.
 
 Multiplying two fractions is actually pretty simple - we just need to multiply
 the two numerators and the two denominators together, and we get another
 fraction. For example, to multiply
-<code class='math'>\frac{1}{2} \times \frac{4}{3}</code>:
+<code class='math' id='math-multiply-two-fractions-statement'>
+  \frac{1}{2} \times \frac{4}{3}
+</code>:
 
-<pre class='math'>
+<pre class='math' id='math-multiply-two-fractions-solution'>
   \frac{1}{2} \times \frac{4}{3} = \frac{1 \times 4}{2 \times 3} = \frac{4}{6}
 </pre>
 
 We can also multiply other fractions:
 
-<pre class='math'>
+<pre class='math' id='math-multiply-two-fractions-2'>
   \frac{7}{5} \times \frac{2}{100} = \frac{7 \times 2}{5 \times 100} = \frac{14}{500}
 </pre>
 
-<pre class='math'>
+<pre class='math' id='math-multiply-two-fractions-3'>
   \frac{4}{6} \times \frac{1}{3} = \frac{4 \times 1}{6 \times 3} = \frac{4}{18}
 </pre>
 

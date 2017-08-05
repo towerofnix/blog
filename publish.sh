@@ -1,4 +1,4 @@
-export BLOG_ORIGIN='https://liam4.github.io/blog/'
+export BLOG_ORIGIN='https://towerofnix.github.io/blog/'
 node build.js
 
 echo '-- Publish:'

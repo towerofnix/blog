@@ -366,31 +366,38 @@ const parsePostText = async (text) => {
 
   let processedMarkdown = markdown
 
+  let processedMath = []
+
+  const handleMatch = (texType, applyTemplateFunc) => match => {
+    const reference = match[1]
+    const mathText = match[2]
+
+    const svgFile = `static/math-svg/${reference}.svg`
+
+    processedMath.push({reference, mathText})
+
+    return mathjaxTypeset(mathText, texType)
+      // TODO: Sanitize this.. I'm going to inevitably write a slash in a
+      // math ID, at some point!
+      .then(math => writeFile('site/' + svgFile, math))
+      .then(math => applyTemplateFunc(reference, svgFile))
+  }
+
   processedMarkdown = await processMarkdown(processedMarkdown,
-    /<pre class='math'>([\s\S]+?)<\/pre>/g,
-
-    match => {
-      const mathText = match[1]
-
-      return mathjaxTypeset(mathText, 'TeX')
-        .then(math => `<p class='math'>${math}</p>`)
-    }
+    /<pre class='math' id='([^']*)'>([\s\S]+?)<\/pre>/g,
+    handleMatch('TeX', (reference, svgFile) => fixWS`
+      <p class='math' id='${reference}'>
+        <img src='${svgFile}'>
+      </p>
+    `)
   )
 
   processedMarkdown = await processMarkdown(processedMarkdown,
-    /<code class='math'>([\s\S]+?)<\/code>/g,
+    /<code class='math' id='([^']*)'>([\s\S]+?)<\/code>/g,
 
-    match => {
-      const mathText = match[1]
-
-      return mathjaxTypeset(mathText, 'inline-TeX')
-        // Nobody knows why, but adding whitespace between the <span> and
-        // ${math} magically makes inline TeX work..
-        .then(math => fixWS`
-          <span class='inline-math'>
-            ${math}</span>
-        `)
-    }
+    handleMatch('inline-TeX', (reference, svgFile) => fixWS`
+      <span class='inline-math' id='${reference}'><img src='${svgFile}'></span>
+    `)
   )
 
   return {
