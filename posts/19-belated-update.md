@@ -43,11 +43,11 @@ I also went on a vacation for half the month. It was nice. (I'm not sure if it
 makes up for this somewhat-underwhelming list of interesting things I did,
 though..!)
 
-  [http-music]: https://github.com/liam4/http-music
-  [http-music-commits]: https://github.com/liam4/http-music/compare/master@%7B2017-07-01%7D...master@%7B2017-08-03%7D
-  [apply-example]: https://gist.github.com/liam4/cd7465a82c8b367eef221e61c3b6186e
+  [http-music]: https://github.com/towerofnix/http-music
+  [http-music-commits]: https://github.com/towerofnix/http-music/compare/master@%7B2017-07-01%7D...master@%7B2017-08-03%7D
+  [apply-example]: https://gist.github.com/towerofnix/cd7465a82c8b367eef221e61c3b6186e
   [youtube-dl-supportedsites]: https://rg3.github.io/youtube-dl/supportedsites.html
   [promise-all]: https://stackoverflow.com/a/44849645/4633828
   [redefine-private]: https://stackoverflow.com/a/45237361/4633828
-  [1500000000000]: https://liam4.github.io/1500000000000/
+  [1500000000000]: https://towerofnix.github.io/1500000000000/
   [pi-madness]: posts/11-raspberry-pi-madness.html

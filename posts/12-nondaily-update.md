@@ -185,7 +185,7 @@ generally not long after I did whatever I mentioned in each paragraph.)
   it's kind of taken for granted until you've got experience with a place
   that doesn't have free healthcare.
 
-  [scrap]: http://liam4.github.io/scrap-mod/
+  [scrap]: http://towerofnix.github.io/scrap-mod/
   [baiyon]: http://baiyon.com/en/
   [pj-eden]: https://www.youtube.com/playlist?list=PLB0A37E2F550DB027
   [C418]: https://c418.org/

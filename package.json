@@ -9,17 +9,17 @@
     "ncp": "^2.0.0"
   },
   "name": "blog",
-  "description": "A new version of the old blog. Static pages are served now, so that's good. Check out the blog online here! https://liam4.github.io/blog/",
+  "description": "A new version of the old blog. Static pages are served now, so that's good. Check out the blog online here! https://towerofnix.github.io/blog/",
   "version": "1.0.0",
   "main": "build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node build.js",
-    "publish": "export BLOG_ORIGIN='https://liam4.github.io/blog/' && node build.js"
+    "publish": "export BLOG_ORIGIN='https://towerofnix.github.io/blog/' && node build.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liam4/blog.git"
+    "url": "git+https://github.com/towerofnix/blog.git"
   },
   "keywords": [
     "gh-pages",
@@ -29,7 +29,7 @@
   "author": "towerofnix",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liam4/blog/issues"
+    "url": "https://github.com/towerofnix/blog/issues"
   },
-  "homepage": "https://github.com/liam4/blog#readme"
+  "homepage": "https://github.com/towerofnix/blog#readme"
 }

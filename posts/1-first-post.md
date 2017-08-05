@@ -48,7 +48,7 @@ Here's a picture, for good measure's sake.
 
 ![Puppet thing](static/media/00-puppet-thing.png)
 
-  [repo]: https://github.com/liam4/blog
+  [repo]: https://github.com/towerofnix/blog
   [scratch-flaws]: https://scratch.mit.edu/projects/152633913/
   [neck-sizes]: https://twitter.com/towerofnix/status/844198786410930176
   [motivation]: https://youtu.be/uNjxe8ShM-8?t=1m41s

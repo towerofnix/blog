@@ -71,7 +71,7 @@ one (er, three), that's for sure.
   [sploder]: http://sploder.com/
   [sploder-magic]: http://forums.sploder.com/index.php/topic,504355.msg6410307.html
   [cupcakes]: https://twitter.com/towerofnix/status/864434231107366912
-  [cupcake-src]: https://github.com/liam4/Lexy-and-the-Quest-for-Cupcakes/
+  [cupcake-src]: https://github.com/towerofnix/Lexy-and-the-Quest-for-Cupcakes/
   [grotto-guide]: https://www.gamefaqs.com/ds/937281-dragon-quest-ix-sentinels-of-the-starry-skies/faqs/61151
   [printed-guide]: https://twitter.com/towerofnix/status/865376968249925633
   [a-quick-update]: posts/7-quick-update.html
