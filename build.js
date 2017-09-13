@@ -11,6 +11,7 @@ const ncp = promisify(require('ncp').ncp)
 const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)
 const readDir = promisify(fs.readdir)
+const mkdir = promisify(fs.mkdir)
 
 const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000/')
 
@@ -372,11 +373,18 @@ const parsePostText = async (text) => {
     const reference = match[1]
     const mathText = match[2]
 
-    const svgFile = `static/math-svg/${reference}.svg`
+    const directoryName = `static/math-svg/${config.permalink}`
+    const svgFile = `${directoryName}/${reference}.svg`
 
     processedMath.push({reference, mathText})
 
-    return mathjaxTypeset(mathText, texType)
+    return mkdir('site/' + directoryName)
+      .catch(err => {
+        if (err.code !== 'EEXIST') {
+          throw err
+        }
+      })
+      .then(() => mathjaxTypeset(mathText, texType))
       // TODO: Sanitize this.. I'm going to inevitably write a slash in a
       // math ID, at some point!
       .then(math => writeFile('site/' + svgFile, math))
