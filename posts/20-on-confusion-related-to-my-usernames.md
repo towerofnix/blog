@@ -7,6 +7,8 @@
 
 ---
 
+# On confusion related to my usernames
+
 There's been an awful lot of confusion as to which of my Scratch accounts are which, and what the purpose of each one is, so I'm feeling obliged to make a hopefully-helpful guide to it all. I probably should have sooner!
 
 Since my names and handles are rather more complicated than being limited to Scratch alone, I'm including some needed info on my names on other sites as well.
