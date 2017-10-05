@@ -22,4 +22,4 @@ please? (Hint: see FAQ.)
 
   [twitter]: https://twitter.com/towerofnix
   [guess]: https://en.wiktionary.org/wiki/guess#TRY-GMAIL
-  [usernames-post]: posts/20-on-confusion-related-to-my-usernames.md
+  [usernames-post]: posts/20-on-confusion-related-to-my-usernames.html
