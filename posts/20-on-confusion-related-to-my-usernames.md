@@ -57,7 +57,7 @@ Unfortunately, my other ideas weren't that much better. I noticed some people ca
 
 "Florrie" happened on accident. A friend of mine called me Florrie one day (online), and, as soon as I read it, the name resonated with me.
 
-Okay, so, hold on, now everyone's confused - why not just use *Liam* as a name for people to know me by online? I could make a claim that I don't want people to know that my in-real-life name is Liam; but that's obviously not true, because my early accounts were all named "liam"-something, and I haven't tried to hide that at all. However, it *is* true that I prefer to not be called by my real-name online.
+Okay, so, hold on, now everyone's confused - why not just use *Liam* as a name for people to know me by online? I could make a claim that I don't want people to know that people call me Liam in real life; but that's not really true, because my early accounts were all named "liam"-something, and I haven't tried to hide them at all. But, online (and to people I've met online), I'd rather not be called Liam - either Florrie or towerofnix is fine.
 
 ## fIorrie
 
