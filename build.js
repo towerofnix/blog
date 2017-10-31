@@ -509,7 +509,7 @@ const getDate = post => {
 
   const { y, m, d } = post.config.date
 
-  return new Date(y, m, d)
+  return new Date(y, m - 1, d)
 }
 
 const getTimeElement = post => {
@@ -525,7 +525,7 @@ const getTimeElement = post => {
 }
 
 const asDatetime = date => (
-  `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 )
 
 const asHumanReadableDate = date => {
@@ -534,7 +534,7 @@ const asHumanReadableDate = date => {
     'September', 'October', 'November', 'December'
   ]
 
-  const monthName = months[date.getMonth() - 1]
+  const monthName = months[date.getMonth()]
 
   return `${monthName} ${date.getDate()}, ${date.getFullYear()}`
 }
