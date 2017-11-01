@@ -58,13 +58,13 @@ const build = () => (
 
           writeFile(
             'site/index.html',
-            generatePostPage(getLatestPost(posts), categoryData)
+            generatePostPage(getLatestPost(posts), categoryData, posts)
           ),
 
           ...posts.map(
             post => writeFile(
               'site/' + getPostPath(post),
-              generatePostPage(post, categoryData)
+              generatePostPage(post, categoryData, posts)
             )
           ),
 
@@ -80,7 +80,7 @@ const generateStaticPage = (md, head = '') => (
   generateSitePage(head, marked(md))
 )
 
-const generatePostPage = (post, categoryData) => {
+const generatePostPage = (post, categoryData, allPosts) => {
   const categories = post.config.categories
 
   const categoryLinks = (
@@ -96,6 +96,29 @@ const generatePostPage = (post, categoryData) => {
     ? 'categories: ' + categoryLinks.join(', ')
     : 'no categories'
   )
+
+  const postDate = getDate(post)
+
+  const dateReduce = fn => (choice, cur) => {
+    const curDate = getDate(cur)
+    const choiceDate = choice ? getDate(choice) : 0
+    if (fn(curDate, choiceDate)) {
+      return cur
+    } else {
+      return choice
+    }
+  }
+
+  const nextReduce = dateReduce(
+    (curDate, choiceDate) => curDate > postDate && (!choiceDate || curDate < choiceDate)
+  )
+
+  const previousReduce = dateReduce(
+    (curDate, choiceDate) => curDate < postDate && (!choiceDate || curDate > choiceDate)
+  )
+
+  const nextByDate = allPosts.reduce(nextReduce, null)
+  const previousByDate = allPosts.reduce(previousReduce, null)
 
   return generateSitePage(
     // No description-meta here.. yet. In theory there should be, but Google
@@ -124,6 +147,20 @@ const generatePostPage = (post, categoryData) => {
         (-towerofnix,
           <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>;
           ${categoryLinkText})
+      </p>
+      <p class='post-navigation'>
+        ${previousByDate
+          ? fixWS`
+            <a href='${getPostPermalink(previousByDate)}'>Previous</a>
+          `
+          : ''
+        }
+        ${nextByDate
+          ? fixWS`
+            <a href='${getPostPermalink(nextByDate)}'>Next</a>
+          `
+          : ''
+        }
       </p>
     `
   )
