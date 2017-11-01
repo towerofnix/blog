@@ -80,23 +80,7 @@ const generateStaticPage = (md, head = '') => (
   generateSitePage(head, marked(md))
 )
 
-const generatePostPage = (post, categoryData, allPosts) => {
-  const categories = post.config.categories
-
-  const categoryLinks = (
-    (categories && categories.length > 0)
-    ? categories.map(id => fixWS`
-      <a href='${getCategoryPath(id)}'>${categoryData[id].title}</a>
-    `)
-    : null
-  )
-
-  const categoryLinkText = (
-    categoryLinks
-    ? 'categories: ' + categoryLinks.join(', ')
-    : 'no categories'
-  )
-
+const generateAdjacentPostLinks = (post, categoryData, allPosts) => {
   const postDate = getDate(post)
 
   const dateReduce = fn => (choice, cur) => {
@@ -157,6 +141,43 @@ const generatePostPage = (post, categoryData, allPosts) => {
     }
   }
 
+  // TODO: fix-whitespace hates this string, for some reason??
+  return fixWS`
+    ${previousByDate
+      ? fixWS`
+        <a href='${getPostPermalink(previousByDate)}'>Previous post</a>
+        ${makeAdjacentInCategoriesLinks(previousByCategories)}
+      `
+      : ''
+    }
+    ${nextByDate ? '<br>' : ''}
+    ${nextByDate
+      ? fixWS`
+        <a href='${getPostPermalink(nextByDate)}'>Next post</a>
+        ${makeAdjacentInCategoriesLinks(nextByCategories)}
+      `
+      : ''
+    }
+  `
+}
+
+const generatePostPage = (post, categoryData, allPosts) => {
+  const categories = post.config.categories
+
+  const categoryLinks = (
+    (categories && categories.length > 0)
+    ? categories.map(id => fixWS`
+      <a href='${getCategoryPath(id)}'>${categoryData[id].title}</a>
+    `)
+    : null
+  )
+
+  const categoryLinkText = (
+    categoryLinks
+    ? 'categories: ' + categoryLinks.join(', ')
+    : 'no categories'
+  )
+
   return generateSitePage(
     // No description-meta here.. yet. In theory there should be, but Google
     // does a pretty good job at guessing descriptions from the content of
@@ -185,23 +206,15 @@ const generatePostPage = (post, categoryData, allPosts) => {
           <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>;
           ${categoryLinkText})
       </p>
-      <p class='post-navigation'>
-        ${previousByDate
-          ? fixWS`
-            <a href='${getPostPermalink(previousByDate)}'>Previous post</a>
-            ${makeAdjacentInCategoriesLinks(previousByCategories)}
-          `
-          : ''
-        }
-        ${nextByDate ? '-' : ''}
-        ${nextByDate
-          ? fixWS`
-            <a href='${getPostPermalink(nextByDate)}'>Next</a>
-            ${makeAdjacentInCategoriesLinks(nextByCategories)}
-          `
-          : ''
-        }
+      <p class='post-meta'>
+        ${generateAdjacentPostLinks(post, categoryData, allPosts)}
       </p>
+    `,
+
+    fixWS`
+      <div class='post-nav'>
+        ${generateAdjacentPostLinks(post, categoryData, allPosts)}
+      </div>
     `
   )
 }
@@ -226,7 +239,7 @@ const generateAboutPage = md => {
   )
 }
 
-const generateSitePage = (head, body) => {
+const generateSitePage = (head, body, extraNav = '') => {
   if (!head.includes('twitter')) {
     // TODO: It would be really nice to be able to log the title of the page
     // here! - But virtually impossible without being smart and parsing the
@@ -254,6 +267,7 @@ const generateSitePage = (head, body) => {
             <a href='index.html'>(Front.)</a>
             <a href='about.html'>(About!)</a>
             <a href='archive.html'>(Archive.)</a>
+            ${extraNav}
           </div>
           <div id='content'>
             ${body}
