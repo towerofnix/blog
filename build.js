@@ -109,16 +109,53 @@ const generatePostPage = (post, categoryData, allPosts) => {
     }
   }
 
-  const nextReduce = dateReduce(
+  const reduceNextByDate = dateReduce(
     (curDate, choiceDate) => curDate > postDate && (!choiceDate || curDate < choiceDate)
   )
 
-  const previousReduce = dateReduce(
+  const reducePreviousByDate = dateReduce(
     (curDate, choiceDate) => curDate < postDate && (!choiceDate || curDate > choiceDate)
   )
 
-  const nextByDate = allPosts.reduce(nextReduce, null)
-  const previousByDate = allPosts.reduce(previousReduce, null)
+  const nextByDate = allPosts.reduce(reduceNextByDate, null)
+  const previousByDate = allPosts.reduce(reducePreviousByDate, null)
+
+  const filterPostsWithSameCategory = cat => p => {
+    return (p.config.categories || []).includes(cat)
+  }
+
+  const nextByCategories = (post.config.categories || []).map(cat => {
+    return [cat,
+      allPosts
+        .filter(filterPostsWithSameCategory(cat))
+        .reduce(reduceNextByDate, null)
+    ]
+  }).filter(([ cat, post ]) => !!post)
+    .filter(([ cat, post ]) => post !== nextByDate)
+
+  const previousByCategories = (post.config.categories || []).map(cat => {
+    return [cat,
+      allPosts
+        .filter(filterPostsWithSameCategory(cat))
+        .reduce(reducePreviousByDate, null)
+    ]
+  }).filter(([ cat, post ]) => !!post)
+    .filter(([ cat, post ]) => post !== previousByDate)
+
+  const makeAdjacentInCategoriesLinks = postsByCategories => {
+    if (postsByCategories.length) {
+      return fixWS`
+        (by date; in ${postsByCategories
+          .map(([ cat, post ]) => fixWS`
+            <a href='${getPostPermalink(post)}'>${categoryData[cat].title}</a>
+          `)
+          .join(', ')
+        })
+      `
+    } else {
+      return ''
+    }
+  }
 
   return generateSitePage(
     // No description-meta here.. yet. In theory there should be, but Google
@@ -151,13 +188,16 @@ const generatePostPage = (post, categoryData, allPosts) => {
       <p class='post-navigation'>
         ${previousByDate
           ? fixWS`
-            <a href='${getPostPermalink(previousByDate)}'>Previous</a>
+            <a href='${getPostPermalink(previousByDate)}'>Previous post</a>
+            ${makeAdjacentInCategoriesLinks(previousByCategories)}
           `
           : ''
         }
+        ${nextByDate ? '-' : ''}
         ${nextByDate
           ? fixWS`
             <a href='${getPostPermalink(nextByDate)}'>Next</a>
+            ${makeAdjacentInCategoriesLinks(nextByCategories)}
           `
           : ''
         }
