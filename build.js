@@ -266,8 +266,10 @@ const generateSitePage = (head, body, extraNav = '') => {
           <div id='nav'>
             <a href='index.html'>(Front.)</a>
             <a href='about.html'>(About!)</a>
-            <a href='archive.html'>(Archive.)</a>
-            ${extraNav}
+            <a href='archive.html'>(Archive.)</a>${
+              // TODO: fix-whitespace doesn't like whitespace-only lines??
+              extraNav
+            }
           </div>
           <div id='content'>
             ${body}
