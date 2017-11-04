@@ -1,6 +1,6 @@
 
-    title: "Resting art dump"
-    permalink: '23-resting-art-dump'
+    title: "Art dump 11-04"
+    permalink: '23-art-dump-11-04'
     date: {m: 11, d: 4, y: 2017}
     thumbnail: 'static/media/23-thumbnail.png'
     presentArt: true
@@ -9,7 +9,7 @@
 
 ---
 
-# Resting art dump
+# Art dump 11-04
 
 ![Resting alone is comfortable..](static/media/23-prequel-rest.png)
 ![OKAY BUT THIS IS CUTE](static/media/23-totally-your-fault.png)
