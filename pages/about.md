@@ -17,9 +17,14 @@ for myself, and it's what people can search to find me. But if you're talking
 about me, as a person, please use Florrie. (If you're curious, there's a whole
 blog post on this topic [here][usernames-post]!)
 
+**What's this blog engine?**
+It's a completely custom, hand-made one. [Here's the source code][blog-source]
+if you want to use it or just play around with it.
+
 **How frequently asked are these questions?** Never. Ask me some questions,
 please? (Hint: see FAQ.)
 
   [twitter]: https://twitter.com/towerofnix
   [guess]: https://en.wiktionary.org/wiki/guess#TRY-GMAIL
   [usernames-post]: posts/20-on-confusion-related-to-my-usernames.html
+  [blog-source]: https://github.com/towerofnix/blog
