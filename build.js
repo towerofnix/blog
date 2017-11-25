@@ -63,6 +63,7 @@ const build = () => (
     )))
     .then(contents => Promise.all(contents.map(parsePostText)))
     .then(posts => Promise.all([
+      ncp('pages/about.md', 'site/about.md'),
       readFile('pages/about.md', 'utf-8')
         .then(md => writeFile('site/about.html', generateAboutPage(md))),
 
@@ -75,16 +76,20 @@ const build = () => (
             generateArchiveCategoriesPage(categoryData)
           ),
 
+          writeFile('site/index.md', getLatestPost(posts).markdown),
           writeFile(
             'site/index.html',
             generatePostPage(getLatestPost(posts), categoryData, posts)
           ),
 
           ...posts.map(
-            post => writeFile(
-              'site/' + getPostPath(post),
-              generatePostPage(post, categoryData, posts)
-            )
+            post => Promise.all([
+              writeFile('site/' + getPostPath(post, 'md'), post.markdown),
+              writeFile(
+                'site/' + getPostPath(post, 'html'),
+                generatePostPage(post, categoryData, posts)
+              )
+            ])
           ),
 
           writeCategoryPages(posts, categoryData)
@@ -461,7 +466,7 @@ const parsePostText = async (text) => {
 
   const separatorIndex = text.indexOf(separator)
   const code = text.slice(0, separatorIndex)
-  const markdown = text.slice(separatorIndex + separator.length)
+  const markdown = text.slice(separatorIndex + separator.length).trim()
 
   let config
 
@@ -528,8 +533,8 @@ const parsePostText = async (text) => {
   }
 }
 
-const getPostPath = post => (
-  `posts/${post.config.permalink}.html`
+const getPostPath = (post, extension = 'html') => (
+  `posts/${post.config.permalink}.${extension}`
 )
 
 const getPostPermalink = post => (
