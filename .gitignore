@@ -1,3 +1,5 @@
 .DS_Store
 /node_modules
-/site
+
+# Disabled (i.e. not ignored), for publish branch:
+# /site
