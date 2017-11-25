@@ -227,7 +227,8 @@ const generatePostPage = (post, categoryData, allPosts) => {
       ${post.html}
       <p class='post-meta'>
         (-towerofnix,
-          <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>;
+          <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>
+          (<a href='${getPostPermalink(post, 'md')}'>markdown</a>);
           ${categoryLinkText})
       </p>
       <p class='post-meta'>
@@ -537,8 +538,8 @@ const getPostPath = (post, extension = 'html') => (
   `posts/${post.config.permalink}.${extension}`
 )
 
-const getPostPermalink = post => (
-  getSiteOrigin() + getPostPath(post)
+const getPostPermalink = (post, extension = undefined) => (
+  getSiteOrigin() + getPostPath(post, extension)
 )
 
 const getPostDescription = post => {
