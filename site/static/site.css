@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700|Martel:700|Ubuntu+Mono');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css');
+
+body {
+  background-color: hsl(60, 70%, 95%);
+  color: #333;
+  font-family: Merriweather;
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+#nav {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 4px;
+}
+
+#main {
+  background-color: hsl(60, 50%, 97%);
+  padding: 30px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Text formatting, etc */
+
+a {
+  color: #777;
+}
+
+#main a:visited {
+  color: #555;
+}
+
+b {
+  font-weight: 700;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Martel;
+}
+
+h1 {
+  font-size: 2.4em;
+  margin-bottom: 0.3em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 0.2em;
+}
+
+code {
+  font-family: 'Ubuntu Mono';
+  background-color: hsl(60, 75%, 92%);
+  padding: 0.1em 0.25em;
+}
+
+blockquote {
+  color: #999;
+  font-style: italic;
+}
+
+.inline-math img {
+  vertical-align: middle;
+}
+
+.inline-math {
+  break-inside: avoid;
+}
+
+/* Tables */
+
+table {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #CCC;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 2px;
+}
+
+/* Page specific stuff ----------------------------------------------------- */
+
+/* Post pages */
+
+.post-meta {
+  font-style: italic;
+  color: #AAA;
+}
+
+/* Archive pages */
+
+.date-col {
+  width: 150px;
+}
