@@ -9,7 +9,7 @@
 
 ---
 
-# Elian scribblings
+# Old sketches
 
 ![Old sketch 1](static/media/26-old1.png)
 ![Old sketch 2](static/media/26-old2.png)
