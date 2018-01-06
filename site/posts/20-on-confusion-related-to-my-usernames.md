@@ -28,7 +28,7 @@ In February 2016, I found myself in need of another Scratch account, so that I c
 
 A few months later (July of 2016), I created the Scratch user [`towerofnix`][scratch-towerofnix]. I created this account to make tutorials about programming with Scratch; I didn't go too far with it, though (only to [one project](https://scratch.mit.edu/projects/116852216/)). I also made this account to post projects I put more effort into on, but by the time I completed any large projects I'd mostly abandoned the towerofnix account...
 
-...Because, around the time I made the towerofnix account, I'd been transitioning from using liam48D to \_nix. As I moved towards \_nix, I practically forgot about towerofnix; and I didn't really feel like separating my amazing projects from my simple test ones (in part because I wasn't actually completing any large oens!).
+...Because, around the time I made the towerofnix account, I'd been transitioning from using liam48D to \_nix. As I moved towards \_nix, I practically forgot about towerofnix; and I didn't really feel like separating my amazing projects from my simple test ones (in part because I wasn't actually completing any large ones!).
 
 Later I also made an email account, towerofnix-at-gmail, and a Twitter account, [@towerofnix][twitter]. Most accounts I have in other places (e.g. Stack Exchange) are also called towerofnix. I eventually renamed my GitHub account, liam4, to [towerofnix][github-towerofnix]. ([liam4][github-liam4] is now just a notice that I changed my username.)
 
