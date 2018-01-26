@@ -2,8 +2,6 @@
     title: "Art dump"
     permalink: '30-art-dump'
     date: {m: 1, d: 26, y: 2018}
-    thumbnail: 'omg if this was left here PLEASE tell me'
-    presentArt: true
     categories:
     - 'art'
 
