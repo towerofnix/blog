@@ -35,7 +35,7 @@ The username towerofnix stuck, and I began using it just about everywhere.
 
 In February 2016, I found myself in need of another Scratch account, so that I could practice playing with [cloud data][cloud-data] more; so, I created the account [`_nix`][scratch-nix]. (Using `_nix` instead of `nix` was because the name actually came from "\*nix", in the sense of "any Unix-like" (obviously derived from towerofnix). Though I suppose it helped that `nix` was already taken.)
 
-A few months later (July of 2016), I created the Scratch user [`towerofnix`][scratch-towerofnix]. I created this account to make tutorials about programming with Scratch; I didn't go too far with it, though (only to [one project](https://scratch.mit.edu/projects/116852216/)). I also made this account to post projects I put more effort into on, but by the time I completed any large projects I'd mostly abandoned the towerofnix account...
+A few months later (July of 2016), I created the Scratch user [`towerofnix`][scratch-towerofnix]. I created this account to make tutorials about programming with Scratch; I didn't go too far with it, though (only to [one project](https://scratch.mit.edu/projects/116852216/)). I also made this account to post projects I put more effort into, but by the time I completed any large projects I'd mostly abandoned the towerofnix account...
 
 ...Because, around the time I made the towerofnix account, I'd been transitioning from using liam48D to \_nix. As I moved towards \_nix, I practically forgot about towerofnix; and I didn't really feel like separating my amazing projects from my simple test ones (in part because I wasn't actually completing any large ones!).
 
