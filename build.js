@@ -526,6 +526,14 @@ const parsePostText = async (text) => {
     `)
   )
 
+  processedMarkdown = await processMarkdown(processedMarkdown,
+    /<art>([^<]*)<\/art>/g,
+    match => fixWS`
+      [![${match[1].match(/^[0-9]+-(.*)$/)[1]}](static/media/${encodeURIComponent(match[1])}.png)](static/media/${encodeURIComponent(match[1])}.png)
+      ([${match[1].match(/^[0-9]+-(.*)$/)[1]}.kra](static/media/${encodeURIComponent(match[1])}.kra))
+    `
+  )
+
   return {
     config: yaml.safeLoad(code),
     html: marked(processedMarkdown),
