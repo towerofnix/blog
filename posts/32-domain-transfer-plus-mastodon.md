@@ -28,7 +28,7 @@ I've got a Mastodon account! It's [florrie@cybre.space][flcybre]. Cybre.space is
 
 * My Mastodon account's toots are set to private by default: only my followers can see them (and I have to manually approve follow requests). This makes it a lot easier to share things online - when I draw my art, I don't have to worry about what the entire world is going to think of it. It's easy for me to just decide to keep the piece exclusive to my hand-selected followers on Mastodon.
 
-The tl;dr is: **If you follow [me on Mastodon](flcybre) (and I accept your follow request), you will get access to my art earlier than when I post it on my blog.**
+The tl;dr is: **If you follow [me on Mastodon][flcybre] (and I accept your follow request), you will get access to my art earlier than when I post it on my blog.**
 
 Also, eq helped me get some directory listings set up here. If you go to [florrie.ed1.club/stuff][stuff], you may or may not find random junk I throw there; I usually just use cubeupload, so it probably won't be populated all that quickly. I've also got a /private folder for the Krita files of things I share on Mastodon but don't plan on posting to my blog. (Obviously, that directory is password-protected. If you want access, and I've accepted your follow request on Mastodon, I can probably add an entry for you in my htpasswd file. Or something. I don't 100% know how I'm going to use the folder yet!)
 
