@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const yaml = require('js-yaml')
 const marked = require('marked')
 const fixWS = require('fix-whitespace')
@@ -11,6 +12,7 @@ const ncp = promisify(require('ncp').ncp)
 const writeFile = promisify(fs.writeFile)
 const readFile = promisify(fs.readFile)
 const readDir = promisify(fs.readdir)
+const stat = promisify(fs.stat)
 
 const mkdir = function(dir) {
   return promisify(fs.mkdir)(dir)
@@ -24,6 +26,7 @@ const mkdir = function(dir) {
 }
 
 const SITE_ORIGIN = (process.env.BLOG_ORIGIN || 'http://localhost:8000/')
+const AUTHOR = (process.env.BLOG_AUTHOR || 'Florrie')
 
 mjAPI.config({
   MathJax: {}
@@ -44,61 +47,96 @@ const mathjaxTypeset = (math, format) => new Promise((resolve, reject) => {
   })
 })
 
-const build = () => (
-  mkdir('site')
-    .then(() => Promise.all([
-      mkdir('site/posts'),
-      mkdir('site/archive'),
-      mkdir('site/static')
-        .then(() => mkdir('site/static/math-svg'))
-    ]))
+async function build() {
+  console.log('Site origin:', getSiteOrigin())
 
-    .then(() => readDir('posts'))
+  console.log('\x1b[1mSetting up things.\x1b[0m') // ----------------------------------------------
 
-    // .DS_Store was being caught before this filter was added.. oops!
-    .then(postFiles => postFiles.filter(item => item.endsWith('.md')))
+  process.stdout.write('Setting up directories...') // ............................................
 
-    .then(postFiles => Promise.all(postFiles.map(
-      f => readFile('posts/' + f, 'utf-8')
-    )))
-    .then(contents => Promise.all(contents.map(parsePostText)))
-    .then(posts => Promise.all([
-      ncp('pages/about.md', 'site/about.md'),
-      readFile('pages/about.md', 'utf-8')
-        .then(md => writeFile('site/about.html', generateAboutPage(md))),
+  await mkdir('site')
+  await Promise.all([
+    mkdir('site/posts'),
+    mkdir('site/archive'),
+    mkdir('site/static').then(() => mkdir('site/static/math-svg'))
+  ])
 
-      writeFile('site/archive/all.html', generateArchivePage(posts)),
+  console.log(' Created necessary folders.')
 
-      getCategoryData()
-        .then(categoryData => Promise.all([
-          writeFile(
-            'site/archive.html',
-            generateArchiveCategoriesPage(categoryData)
-          ),
+  process.stdout.write('Getting category data...') // .............................................
 
-          writeFile('site/index.md', getLatestPost(posts).markdown),
-          writeFile(
-            'site/index.html',
-            generatePostPage(getLatestPost(posts), categoryData, posts)
-          ),
+  const categoryData = await getCategoryData()
 
-          ...posts.map(
-            post => Promise.all([
-              writeFile('site/' + getPostPath(post, 'md'), post.markdown),
-              writeFile(
-                'site/' + getPostPath(post, 'html'),
-                generatePostPage(post, categoryData, posts)
-              )
-            ])
-          ),
+  console.log(` Gotten data for ${Object.keys(categoryData).length} categories.`)
 
-          writeCategoryPages(posts, categoryData)
-        ])),
+  console.log('\x1b[1mBuilding updated and new posts.\x1b[0m') // ---------------------------------
 
-      ncp('static', 'site/static')
-    ]))
-    .then(() => console.log('Built. Site origin: ' + getSiteOrigin()))
-)
+  process.stdout.write('Getting post filenames...') // ............................................
+
+  const postFiles = (await readDir('site/posts'))
+    .filter(item => item.endsWith('.md'))
+
+  console.log(` Found ${postFiles.length} markdown files.`)
+
+  process.stdout.write('Parsing post texts...') // ................................................
+
+  const posts = await Promise.all(postFiles.map(
+    f => readFile('site/posts/' + f, 'utf-8').then(parsePostText)
+      .then(post => Object.assign(post, {sourceFile: f}))
+  ))
+
+  console.log(' Parsed.')
+
+  process.stdout.write('Filtering just the updated posts...') // ..................................
+
+  const updatedPostFiles = (await Promise.all(postFiles.map(f =>
+    Promise.all([
+      stat('site/posts/' + f).then(s => s.mtime),
+      stat('site/posts/' + path.basename(f, '.md') + '.html').then(
+        s => s.mtime,
+        e => 0
+      )
+    ]).then(([ mtimeSrc, mtimeHTML ]) => {
+      return mtimeSrc > mtimeHTML ? f : false
+    })
+  ))).filter(Boolean)
+
+  const updatedPosts = posts.filter(p => updatedPostFiles.includes(p.sourceFile))
+
+  console.log(` Found ${updatedPostFiles.length} .md files that have been modified more recently than their respective .html files.`)
+
+  process.stdout.write('Writing post pages...') // ................................................
+  await Promise.all(updatedPosts.map(post => {
+    writeFile('site/' + getPostPath(post), generatePostPage(post, categoryData, posts))
+  }))
+  console.log(' Written.')
+
+  process.stdout.write('Writing index (latest post) page...') // ..................................
+  await writeFile('site/index.html', generatePostPage(getLatestPost(posts), categoryData, posts))
+  await writeFile('site/index.md', await readFile('site/posts/' + getLatestPost(posts).sourceFile))
+  console.log(' Written.')
+
+  console.log('\x1b[1mWriting archive and category pages.\x1b[0m') // -----------------------------
+
+  process.stdout.write('Writing archive index page...') // ........................................
+  await writeFile('site/archive.html', generateArchiveCategoriesPage(categoryData))
+  console.log(' Written.')
+
+  process.stdout.write('Writing every-post archive page...') // ...................................
+  await writeFile('site/archive/all.html', generateArchivePage(posts))
+  console.log(' Written.')
+
+  process.stdout.write('Writing each category\'s own page...') // .................................
+  await writeCategoryPages(posts, categoryData)
+  console.log(' Written.')
+
+  console.log('\x1b[1mWriting other miscellaneous pages.\x1b[0m') // ------------------------------
+  // TODO: Don't hard-code these, lol
+
+  process.stdout.write('Writing "About" page...') // ..............................................
+  await writeFile('site/about.html', generateAboutPage(await readFile('site/about.md', 'utf-8')))
+  console.log(' Written.')
+}
 
 const generateStaticPage = (md, head = '') => (
   generateSitePage(head, marked(md))
@@ -226,7 +264,7 @@ const generatePostPage = (post, categoryData, allPosts) => {
     fixWS`
       ${post.html}
       <p class='post-meta'>
-        (-towerofnix,
+        (-${AUTHOR},
           <a href='${getPostPermalink(post)}'>${getTimeElement(post)}</a>
           (<a href='${getPostPermalink(post, 'md')}'>markdown</a>);
           ${categoryLinkText})
@@ -584,8 +622,6 @@ const getOneSentence = text => {
   const textRange = text.slice(0, i)
   const sentence = textRange.replace(/\n/g, ' ')
 
-  console.log('Sentence:', sentence)
-
   return sentence
 }
 
@@ -688,7 +724,9 @@ const processMarkdown = async (markdown, regex, matchFunction) => {
   return processedMarkdown
 }
 
-build()
-  .catch(error => console.error(
-    `${error.name} - ${error.reason}\n${error.stack}`
-  ))
+if (require.main === module) {
+  build()
+    .catch(error => console.error(
+      `${error.name} - ${error.reason}\n${error.stack}`
+    ))
+}

@@ -9,7 +9,7 @@
 
 # Art dump March!!!
 
-March! Quite a few things. Less doodles, but more relatively-complete things. Actually, maybe "less doodles" isn't right - rather, there's more doodles that I actually went further with! (Okay, less doodles than February anyways.)
+March! Quite a few things. Less doodles, but more relatively-complete things. Actually, maybe "less doodles" isn't right - rather, there's more doodles that I actually went further with! ...Okay, less doodles than February anyways :)
 
 Clicking any image will view it directly, so you can zoom in or view it in fullscreen. As usual, these are all [CC BY-SA 4.0][ccbysa] licensed.
 
