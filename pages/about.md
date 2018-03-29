@@ -21,6 +21,14 @@ blog post on this topic [here][usernames-post]!)
 It's a completely custom, hand-made one. [Here's the source code][blog-source]
 if you want to use it or just play around with it.
 
+**What the eff is the standard text editor and why is it ed(1)?**
+Apparently, ed is useful because you can use it on just about any Unix system.
+(I think that's why the call it "standard".) So if you know how to use it,
+you'll never be without the ability to harness its amazing splendid powers.
+A little wikipediabird is telling me that ed was developed in 1969, which
+should be enough reason for *anybody* to learn it, but I've never actually
+used it myself. Oops.
+
 **How frequently asked are these questions?** Never. Ask me some questions,
 please? (Hint: see FAQ.)
 
