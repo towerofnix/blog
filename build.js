@@ -69,7 +69,7 @@ async function build() {
 
   console.log(` Gotten data for ${Object.keys(categoryData).length} categories.`)
 
-  console.log('\x1b[1mBuilding updated and new posts.\x1b[0m') // ---------------------------------
+  console.log('\x1b[1mBuilding posts.\x1b[0m') // -------------------------------------------------
 
   process.stdout.write('Getting post filenames...') // ............................................
 
@@ -87,6 +87,7 @@ async function build() {
 
   console.log(' Parsed.')
 
+  /*
   process.stdout.write('Filtering just the updated posts...') // ..................................
 
   const updatedPostFiles = (await Promise.all(postFiles.map(f =>
@@ -104,6 +105,13 @@ async function build() {
   const updatedPosts = posts.filter(p => updatedPostFiles.includes(p.sourceFile))
 
   console.log(` Found ${updatedPostFiles.length} .md files that have been modified more recently than their respective .html files.`)
+  */
+
+  // For now just rebuild EVERYTHING - only rebuilding updated posts is kind of not good when
+  // you consider that like categories and "next post in category" and blah blah blah those
+  // kinds of links and also like uhhhhhhhhhhhhhhhhhhhhhhhh blog origin changes it's all a
+  // mess and I don't want to figure out how to deal with it without rebuilding everything lul.
+  const updatedPosts = posts
 
   process.stdout.write('Writing post pages...') // ................................................
   await Promise.all(updatedPosts.map(post => {
