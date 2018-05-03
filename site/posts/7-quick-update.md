@@ -47,26 +47,7 @@ every move, just a means of seeing all the cool projects he's worked on!
 
 ## Some art
 
-I did a little bit of art? Not near as much as I wanted to, though. Here's what
-I drew in the time:
-
-![Cayenne, except he is colorful](static/media/07-cayenne-colored.png)
-
-Here's a drawing of [Cayenne][cayenne-profile]. His ears are pretty fun to draw
-(I've got a scan of the uncolored version, too,
-[if you're curious][cayenne-sketch]). I tried a kinda interesting
-lighting-border technique in this picture, which turned out to work pretty
-well, I guess. (I also have a scan of [the full page][cayenne-page]. The color
-palette is made up of Crayola pencil names.)
-
-Coloring with coloring pencils is pretty fun. It's not really *easier* than
-using some digital art's brushes, but it definitely has a different feel. It
-feels better when I'm shading with a pencil like these - you end up with a bit
-more of a natural shade color, I guess. Coloring highlights really is just the
-same as not shading as much wherever your highlight is. I guess there's
-specific brushes on digital art programs that work more like coloring
-pencils than, say, a wet brush? (I mean, of *course* a wet brush will be more
-like painting than coloring.. duh.)
+I did a little bit of art? Not near as much as I wanted to, though.
 
 ![SPOILERS!!!! it's a bowl of vegetables and/or vegetables.](static/media/07-my-art-is-deteriorating.png)
 
@@ -104,6 +85,3 @@ the commenting form at the bottom of all post pages, and that's not even
 
   [lightblub]: https://github.com/lightblub
   [coolandgood]: https://github.com/orgs/coolandgood/people
-  [cayenne-profile]: http://floraverse.com/comic/oneshots/96-character-profile-cayenne/
-  [cayenne-sketch]: static/media/07-cayenne-sketch.png
-  [cayenne-page]: static/media/07-cayenne-page.png
