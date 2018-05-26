@@ -78,14 +78,19 @@ async function build() {
 
   console.log(` Found ${postFiles.length} markdown files.`)
 
-  process.stdout.write('Parsing post texts...') // ................................................
+  console.log('Parsing post texts...') // .........................................................
 
+  let parsedPostCount = 0
   const posts = await Promise.all(postFiles.map(
     f => readFile('site/posts/' + f, 'utf-8').then(parsePostText)
-      .then(post => Object.assign(post, {sourceFile: f}))
+      .then(post => {
+        parsedPostCount++
+        process.stdout.write(`\r${Math.floor(parsedPostCount / postFiles.length * 100)}%`)
+        return Object.assign(post, {sourceFile: f})
+      })
   ))
 
-  console.log(' Parsed.')
+  console.log('\rParsed.')
 
   /*
   process.stdout.write('Filtering just the updated posts...') // ..................................
