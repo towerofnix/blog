@@ -7,8 +7,8 @@ to someone.
 ## FAQ
 
 **I want to contact you or comment on one of your posts but have no idea how.**
-Sending me a tweet [@towerofnix][twitter] or [an email][guess] is probably the
-best way right now.
+Sending me a tweet [@towerofnix][twitter], a post on [mastodon][masto], or
+[an email][guess] is probably the best way right now.
 
 **towerofnix is really hard to pronounce and write and say. Any other names??**
 You might want to stick to towerofnix if you're specifically talking about,
@@ -33,6 +33,7 @@ used it myself. Oops.
 please? (Hint: see FAQ.)
 
   [twitter]: https://twitter.com/towerofnix
+  [masto]: https://cybre.space/@florrie
   [guess]: https://en.wiktionary.org/wiki/guess#TRY-GMAIL
   [usernames-post]: posts/20-on-confusion-related-to-my-usernames.html
   [blog-source]: https://github.com/towerofnix/blog

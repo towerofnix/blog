@@ -1,30 +1,38 @@
 
-    title: "Art dump April!!!!"
-    permalink: '34-art-dump-april'
-    date: {m: 5, d: 1, y: 2018}
+    title: "Art dump May!!!!!"
+    permalink: '35-art-dump-may'
+    date: {m: 6, d: 1, y: 2018}
     categories:
     - 'art'
 
 ---
 
-# Art dump April!!!!
+# Art dump May!!!!!
 
-April! A decent bit of stuff, although I've been having a couple weeks of Not Drawing Much - most of this is from the first half of the month. I've put a relatively more-significant-than-normal time into a bunch of these (and less in others!).
+Maaay!!!!!!!!!! Whee. A few new things!
 
-<art>34-Cotton Candy Chimaera</art>
+<art>35-Sleeeeeeep</art>
 
-<art>34-Fastchar</art>
+<art>35-nocrashpls</art>
 
-<art>34-aaaaaPerspectave</art>
+<art>35-choc</art>
 
-<art>34-persp1</art>
+<art>35-dangit</art>
 
-<art>34-Toooongue</art>
+<art>35-Fiiiire</art>
 
-<art>34-Siit</art>
+<art>35-gh</art>
 
-<art>34-Aquatic</art>
+<art>35-pixeljunkeqen</art>
 
-<art>34-Abstract Purple</art>
+This one just above is based on [a thing eq made!](https://eq.ed1.club/art/2018-05-06-.html)
 
-<art>34-Tree</art>
+<art>35-spin</art>
+
+<art>35-creepyabstract</art>
+
+<art>35-brushtest</art>
+
+<art>35-dlothes</art>
+
+<art>35-drlod</art>
