@@ -338,7 +338,7 @@ const generateSitePage = (head, body, extraNav = '') => {
         <link rel='stylesheet' href='static/site.css'>
       </head>
       <body>
-        <div id='main'>
+        <div id='main' class='top-block'>
           <div id='nav'>
             <a href='index.html'>(Front.)</a>
             <a href='about.html'>(About!)</a>
@@ -351,6 +351,12 @@ const generateSitePage = (head, body, extraNav = '') => {
             ${body}
           </div>
         </div>
+        <footer class='top-block'>
+          <p>My posts and art are licensed under
+             <a href='https://creativecommons.org/licenses/by-sa/4.0/'>
+             CC BY-SA 4.0</a>, and this blog's source code is available
+             <a href='https://github.com/towerofnix/blog'>online</a>!</p>
+        </footer>
       </body>
     </html>
   `
