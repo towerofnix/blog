@@ -1,0 +1,13 @@
+categories:
+
+- id: 'art'
+  title: "Art"
+  description: "\"Artistic\" creations (probably things I've made)."
+
+- id: 'dev'
+  title: "Development"
+  description: "Posts related to programming things."
+
+- id: 'text'
+  title: "Text-based Posts"
+  description: "Particularly wordy posts."

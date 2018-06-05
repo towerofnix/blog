@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.1",
+    "fix-whitespace": "^1.0.2",
+    "js-yaml": "^3.8.3",
+    "katex": "^0.7.1",
+    "marked": "^0.3.6",
+    "mathjax-node": "^1.1.0",
+    "ncp": "^2.0.0"
+  },
+  "name": "blog",
+  "description": "A new version of the old blog. Static pages are served now, so that's good. Check out the blog online here! https://towerofnix.github.io/blog/",
+  "version": "1.0.0",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js",
+    "publish": "export BLOG_ORIGIN='https://towerofnix.github.io/blog/' && node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/towerofnix/blog.git"
+  },
+  "keywords": [
+    "gh-pages",
+    "blogs",
+    "blog-engine"
+  ],
+  "author": "towerofnix",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/towerofnix/blog/issues"
+  },
+  "homepage": "https://github.com/towerofnix/blog#readme"
+}
