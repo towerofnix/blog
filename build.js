@@ -355,7 +355,7 @@ const generateSitePage = (head, body, extraNav = '') => {
           <p>My posts and art are licensed under
              <a href='https://creativecommons.org/licenses/by-sa/4.0/'>
              CC BY-SA 4.0</a>, and this blog's source code is available
-             <a href='https://github.com/towerofnix/blog'>online</a>!</p>
+             <a href='https://git.ed1.club/florrie/blog.git'>online</a>!</p>
         </footer>
       </body>
     </html>
