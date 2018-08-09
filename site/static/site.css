@@ -98,6 +98,16 @@ th, td {
   padding: 2px;
 }
 
+/* Art */
+
+div.art-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
 /* Page specific stuff ----------------------------------------------------- */
 
 /* Post pages */

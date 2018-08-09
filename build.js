@@ -584,11 +584,29 @@ const parsePostText = async (text) => {
   )
 
   processedMarkdown = await processMarkdown(processedMarkdown,
-    /<art>([^<]*)<\/art>/g,
-    match => fixWS`
-      [![${match[1].match(/^[0-9]+-(.*)$/)[1]}](static/media/${encodeURIComponent(match[1])}.png)](static/media/${encodeURIComponent(match[1])}.png)
-      ([${match[1].match(/^[0-9]+-(.*)$/)[1]}.kra](static/media/${encodeURIComponent(match[1])}.kra))
-    `
+    /<art([^>]*)>([^<]*)<\/art>/g,
+    ([ _, attrText = '', filename ]) => {
+      const attrs = attrText.split(' ')
+        .filter(Boolean)
+        .map(entry => entry.includes('=') ? entry.split('=') : [entry, entry])
+        .map(([ k, v ]) => [k, v.startsWith('"') && v.endsWith('"') ? v.slice(1, -1) : v])
+        .map(([ k, v ]) => [k, v === 'true' ? true : v === 'false' ? false : v === k ? true : v])
+        .reduce((acc, [ k, v ]) => Object.assign({}, acc, {[k]: v}), {})
+
+      const options = Object.assign({
+        ext: 'kra',
+        noext: false
+      }, attrs)
+
+      return fixWS`
+        <div class="art-container"><div>
+          <a href="static/media/${encodeURIComponent(filename)}.png"><img alt="![${filename.match(/^[0-9]+-(.*)$/)[1]}" src="static/media/${encodeURIComponent(filename)}.png"></a>
+          ${options.noext ? '' : fixWS`
+            <br>(<a href="static/media/${encodeURIComponent(filename)}.${options.ext}">${filename.match(/^[0-9]+-(.*)$/)[1]}.${options.ext}</a>)
+          `}
+        </div></div>
+      `
+    }
   )
 
   return {
