@@ -98,6 +98,10 @@ th, td {
   padding: 2px;
 }
 
+tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 /* Art */
 
 div.art-container {
