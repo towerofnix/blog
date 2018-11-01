@@ -11,3 +11,7 @@ categories:
 - id: 'text'
   title: "Text-based Posts"
   description: "Particularly wordy posts."
+
+- id: 'inktober'
+  title: "Inktober"
+  description: "Posts sharing pieces I created as part of Inktober."
