@@ -1,6 +1,5 @@
 
     title: "Digital art, again!"
-    permalink: '21-digital-art-again'
     date: {m: 10, d: 7, y: 2017}
     thumbnail: 'static/media/21-ske.png'
     presentArt: true

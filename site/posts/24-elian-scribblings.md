@@ -1,6 +1,5 @@
 
     title: "Elian scribblings"
-    permalink: '24-elian-scribblings'
     date: {m: 11, d: 19, y: 2017}
     thumbnail: 'static/media/24-elian-scribblings.png'
     presentArt: true

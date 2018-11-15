@@ -1,6 +1,5 @@
 
     title: "Domain transfer?!?! + Mastodon"
-    permalink: '32-domain-transfer-plus-mastodon'
     date: {m: 3, d: 23, y: 2018}
     categories:
     - 'dev'

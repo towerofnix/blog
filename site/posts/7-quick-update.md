@@ -1,6 +1,5 @@
 
     title: "Quick update"
-    permalink: '7-quick-update'
     date: {m: 5, d: 6, y: 2017}
     thumbnail: 'static/media/07-cayenne-colored.png'
     presentArt: true

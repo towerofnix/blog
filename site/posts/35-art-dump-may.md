@@ -1,6 +1,5 @@
 
     title: "Art dump May!!!!!"
-    permalink: '35-art-dump-may'
     date: {m: 6, d: 1, y: 2018}
     categories:
     - 'art'

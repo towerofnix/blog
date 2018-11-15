@@ -1,6 +1,5 @@
 
     title: "Thoughts on The Dragonet Prophecy, the graphic novel"
-    permalink: '39-thoughts-on-wof-graphic-novel'
     date: {m: 8, d: 28, y: 2018}
     categories:
     - 'text'

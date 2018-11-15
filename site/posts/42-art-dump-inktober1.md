@@ -1,6 +1,5 @@
 
     title: "Art dump Inktober #1!!!!!!!!!!"
-    permalink: '41-art-dump-inktober1'
     date: {m: 11, d: 1, y: 2018}
     categories:
     - 'art'
@@ -40,4 +39,3 @@ Alright, I'm done boring you with text - here's the first nine pieces. :)
 
   [inktober]: https://inktober.com/
   [prompts]: https://inktober.com/rules/
-

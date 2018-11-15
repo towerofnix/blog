@@ -1,6 +1,5 @@
 
     title: "Old sketches"
-    permalink: '26-old-sketches'
     date: {m: 12, d: 2, y: 2017}
     thumbnail: 'static/media/26-old1.png'
     presentArt: true

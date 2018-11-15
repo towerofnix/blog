@@ -1,6 +1,5 @@
 
     title: "On socialization, and such"
-    permalink: '16-on-socialization'
     date: {m: 6, d: 27, y: 2017}
     categories:
     - 'text'

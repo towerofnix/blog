@@ -84,6 +84,11 @@ async function build() {
   const posts = await Promise.all(postFiles.map(
     f => readFile('site/posts/' + f, 'utf-8').then(parsePostText)
       .then(post => {
+        if (post.config.permalink) {
+          console.error(`\n\x1b[1mWarning!\x1b[0m ${f} still has a manually-set permalink.`)
+        }
+
+        post.config.permalink = path.basename(f, '.md')
         parsedPostCount++
         process.stdout.write(`\r${Math.floor(parsedPostCount / postFiles.length * 100)}%`)
         return Object.assign(post, {sourceFile: f})

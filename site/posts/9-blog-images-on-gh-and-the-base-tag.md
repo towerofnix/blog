@@ -1,5 +1,5 @@
+
     title: "Being sad about how images don't work on the blog's GitHub page (AKA: An explanation of the 'base' HTML tag)"
-    permalink: '9-blog-images-on-gh-and-the-base-tag'
     date: {m: 5, d: 17, y: 2017}
     categories:
     - 'dev'

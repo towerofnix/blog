@@ -1,6 +1,5 @@
 
     title: "Belated update"
-    permalink: '19-belated-update'
     date: {m: 8, d: 3, y: 2017}
     categories:
     - 'dev'

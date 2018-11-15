@@ -1,6 +1,5 @@
 
     title: "Browsing the Passed"
-    permalink: '25-browsing-the-passed'
     date: {m: 11, d: 26, y: 2017}
     categories:
     - 'text'

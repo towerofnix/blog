@@ -1,6 +1,5 @@
 
     title: "Productivity idea"
-    permalink: '13-productivity-idea'
     date: {m: 6, d: 7, y: 2017}
     categories:
     - 'text'

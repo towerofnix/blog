@@ -1,6 +1,5 @@
 
     title: "Rainy sketch"
-    permalink: '28-rainy-sketch'
     date: {m: 1, d: 12, y: 2018}
     thumbnail: 'static/media/28-sketchen.png'
     presentArt: true

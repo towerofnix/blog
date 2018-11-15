@@ -1,6 +1,5 @@
 
     title: "I accidentally drew some things"
-    permalink: '15-i-accidentally-drew-some-things'
     date: {m: 6, d: 25, y: 2017}
     thumbnail: 'static/media/15-snek-expressions.png'
     presentArt: true

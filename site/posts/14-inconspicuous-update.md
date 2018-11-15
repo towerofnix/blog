@@ -1,6 +1,5 @@
 
     title: "Inconspicuous Update"
-    permalink: '14-inconspicuous-update'
     date: {m: 6, d: 13, y: 2017}
     categories:
     - 'text'

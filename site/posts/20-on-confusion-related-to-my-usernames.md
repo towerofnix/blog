@@ -1,6 +1,5 @@
 
     title: "On confusion related to my usernames"
-    permalink: '20-on-confusion-related-to-my-usernames'
     date: {m: 10, d: 3, y: 2017}
     categories:
     - 'text'

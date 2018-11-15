@@ -1,6 +1,5 @@
 
     title: 'Non-daily Update'
-    permalink: '12-nondaily-update'
     date: {m: 5, d: 31, y: 2017}
     categories:
     - 'text'

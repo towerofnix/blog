@@ -1,6 +1,5 @@
 
     title: "There goes using Disqus comments"
-    permalink: '18-disqus-comments'
     date: {m: 7, d: 5, y: 2017}
     categories:
     - 'text'

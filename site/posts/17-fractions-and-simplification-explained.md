@@ -1,6 +1,5 @@
 
     title: "Fractions and simplification, explained"
-    permalink: '17-fractions-and-simplification-explained'
     date: {m: 7, d: 1, y: 2017}
     categories:
     - 'text'

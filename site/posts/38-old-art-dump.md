@@ -1,6 +1,5 @@
 
     title: "Old art dump"
-    permalink: '38-old-art-dump'
     date: {m: 8, d: 9, y: 2018}
     categories:
     - 'art'

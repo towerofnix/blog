@@ -1,6 +1,5 @@
 
     title: "Face doodles"
-    permalink: '27-face-doodles'
     date: {m: 1, d: 2, y: 2018}
     thumbnail: 'static/media/27-face-doodles-thumb.png'
     presentArt: true

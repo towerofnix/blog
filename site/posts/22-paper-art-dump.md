@@ -1,6 +1,5 @@
 
     title: "Paper art dump"
-    permalink: '22-paper-art-dump'
     date: {m: 10, d: 31, y: 2017}
     thumbnail: 'static/media/22-beken-kleur.png'
     presentArt: true
