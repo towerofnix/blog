@@ -481,7 +481,7 @@ const generateArchiveTable = posts => (
       </colgroup>
       <tbody>
         ${
-          posts.map(
+          posts.filter(post => !post.config.unlisted).map(
             post => {
               const link = getPostPath(post)
 
@@ -604,7 +604,7 @@ const parsePostText = async (text) => {
       }, attrs)
 
       return fixWS`
-        <div class="art-container"><div>
+        <div class="art-container${options.fullwidth ? ' full-width' : ''}"><div>
           <a href="static/media/${encodeURIComponent(filename)}.png"><img alt="${filename.match(/^[0-9]+-(.*)$/)[1]}" src="static/media/${encodeURIComponent(filename)}.png"></a>
           ${options.noext ? '' : fixWS`
             <br>(<a href="static/media/${encodeURIComponent(filename)}.${options.ext}">${filename.match(/^[0-9]+-(.*)$/)[1]}.${options.ext}</a>)
@@ -691,10 +691,15 @@ const getCategoryData = () => (
 )
 
 const getLatestPost = posts => {
-  let latestPost = posts[0]
+  let latestPost = posts.find(post => !post.config.unlisted)
   let latestDate = 0
 
   for (let curPost of posts) {
+    // If it's unlisted, skip it.
+    if (curPost.config.unlisted) {
+      continue
+    }
+
     const curDate = getDate(curPost)
     if (curDate > latestDate) {
       latestPost = curPost

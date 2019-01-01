@@ -112,6 +112,25 @@ div.art-container {
   margin-top: 4px;
 }
 
+div.art-container.full-width {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+div.art-container.full-width div {
+  display: block;
+  position: relative;
+  margin-left: calc(-50vw + 4em);
+  margin-right: calc(-50vw + 4em);
+  max-width: calc(100vw - 8em);
+  width: calc(100vw - 8em);
+  margin-bottom: 12px;
+}
+
+div.art-container.full-width div img {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
 /* Page specific stuff ----------------------------------------------------- */
 
 /* Post pages */
