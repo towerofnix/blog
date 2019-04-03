@@ -605,9 +605,9 @@ const parsePostText = async (text) => {
 
       return fixWS`
         <div class="art-container${options.fullwidth ? ' full-width' : ''}"><div>
-          <a href="static/media/${encodeURIComponent(filename)}.png"><img alt="${filename.match(/^[0-9]+-(.*)$/)[1]}" src="static/media/${encodeURIComponent(filename)}.png"></a>
+          <a href="static/media/${encodeURIComponent(filename)}.png"><img alt="${filename.match(/^[0-9a-z]+-(.*)$/)[1]}" src="static/media/${encodeURIComponent(filename)}.png"></a>
           ${options.noext ? '' : fixWS`
-            <br>(<a href="static/media/${encodeURIComponent(filename)}.${options.ext}">${filename.match(/^[0-9]+-(.*)$/)[1]}.${options.ext}</a>)
+            <br>(<a href="static/media/${encodeURIComponent(filename)}.${options.ext}">${filename.match(/^[0-9a-z]+-(.*)$/)[1]}.${options.ext}</a>)
           `}
         </div></div>
       `
