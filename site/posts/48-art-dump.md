@@ -24,8 +24,6 @@ I also did some vent-ish art - letting out tough feelings, either lingering or i
 
 <art>48-mousebun</art>
 
-<art>48-filter</art>
-
 <art>48-lhollowknight</art>
 
 <art>48-ohw</art>

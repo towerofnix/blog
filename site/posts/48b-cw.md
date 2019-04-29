@@ -9,6 +9,8 @@
 
 # A world of memories
 
+<art noext>48-filter</art>
+
 <art noext>48b-worldmemoriespower</art>
 
 <art noext>48b-judg</art>
